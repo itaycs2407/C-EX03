@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "TbCqhTfuJ11MabLl4KNlZrwQlSEmz4QapAcA1cGZV382skb1OWVN9moHGHvOqS13eE8Wih3bv80/XIAdO9INWA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Itay Cohen\\Desktop\\לימודים\\שנה ג\\סמסטר ב\\C#\\DN_HIT_2020B_Ex03\\B20 Ex03 Itay 066524737 Nir 316118421\\Ex03.GarageLogic\\Ex03.GarageLogic.csproj",
+  "expectedPackageFiles": [
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

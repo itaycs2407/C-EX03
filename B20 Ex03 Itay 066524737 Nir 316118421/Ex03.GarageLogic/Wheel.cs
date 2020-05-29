@@ -8,12 +8,12 @@ namespace Ex03.GarageLogic
     {
         private string m_ManufactureName;
         private float m_CurrentAirPressure;
-        private string m_ManufactureRecommendedAirPressure;
+        private float m_ManufactureRecommendedAirPressure;
         private eWheelLocation location;
 
         public string ManufactureName { get => m_ManufactureName; set => m_ManufactureName = value; }
         public float CurrentAirPressure { get => m_CurrentAirPressure; set => m_CurrentAirPressure = value; }
-        public string ManufactureRecommendedAirPressure { get => m_ManufactureRecommendedAirPressure; set => m_ManufactureRecommendedAirPressure = value; }
+        public float ManufactureRecommendedAirPressure { get => m_ManufactureRecommendedAirPressure; set => m_ManufactureRecommendedAirPressure = value; }
         public eWheelLocation Location { get => location; set => location = value; }
     }
 }

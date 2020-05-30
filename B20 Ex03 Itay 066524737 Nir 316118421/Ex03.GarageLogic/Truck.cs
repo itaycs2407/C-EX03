@@ -23,5 +23,14 @@ namespace Ex03.GarageLogic
         {
             throw new NotImplementedException();
         }
+
+        public override string ToString()
+        {
+            
+            string generalDetails = this.GetGeneralDetails();
+            string spcificDetails = string.Format("@ \nCargo volume : {0} \n Carry dangerous materials {1}", m_CargoVolume, m_IsDangerousMaterials.ToString());
+            return string.Format("@{0}\n {1}", generalDetails, spcificDetails);
+        }
     }
+
 }

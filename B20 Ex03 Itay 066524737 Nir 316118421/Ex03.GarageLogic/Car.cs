@@ -23,5 +23,12 @@ namespace Ex03.GarageLogic
         {
             throw new NotImplementedException();
         }
+        public override string ToString()
+        {
+
+            string generalDetails = this.GetGeneralDetails();
+            string spcificDetails = string.Format("@ \nNumber of doors : {0} \n Color :  {1}", (int)m_NumberOfDoors, m_Color.ToString());
+            return string.Format("@{0}\n {1}", generalDetails, spcificDetails);
+        }
     }
 }

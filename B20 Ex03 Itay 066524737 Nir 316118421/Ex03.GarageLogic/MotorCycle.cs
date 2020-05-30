@@ -23,5 +23,12 @@ namespace Ex03.GarageLogic
         {
             throw new NotImplementedException();
         }
+        public override string ToString()
+        {
+
+            string generalDetails = this.GetGeneralDetails();
+            string spcificDetails = string.Format("@ \nEngine volume : {0} \n License {1}", m_EngineVolume.ToString(), m_License.ToString());
+            return string.Format("@{0}\n {1}", generalDetails, spcificDetails);
+        }
     }
 }

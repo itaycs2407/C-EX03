@@ -10,6 +10,9 @@ namespace Ex03.ConsoleUI
     {
         static void Main(string[] args)
         {
+            MenuGenerator menu = new MenuGenerator();
+            int a = menu.GetUserInputMainMenu();
+
         }
     }
 }

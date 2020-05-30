@@ -17,7 +17,7 @@ namespace Ex03.GarageLogic
 
         public string Model { get => model; set => model = value; }
         public string LPN { get => lPN; set => lPN = value; }
-        public List<Wheel> Wheels { get => wheels; set => wheels = value; }
+        internal List<Wheel> Wheels { get => wheels; set => wheels = value; }
         public string OwnerName { get => ownerName; set => ownerName = value; }
         public string OwnerPhoneNumber { get => ownerPhoneNumber; set => ownerPhoneNumber = value; }
         public eVehicleState VehicleState { get => vehicleState; set => vehicleState = value; }

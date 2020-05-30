@@ -1,0 +1,7 @@
+C:\Users\Itay Cohen\Desktop\לימודים\שנה ג\סמסטר ב\C#\DN_HIT_2020B_Ex03\B20 Ex03 Itay 066524737 Nir 316118421\Ex03.ConsoleUI\bin\Debug\Ex03.ConsoleUI.exe.config
+C:\Users\Itay Cohen\Desktop\לימודים\שנה ג\סמסטר ב\C#\DN_HIT_2020B_Ex03\B20 Ex03 Itay 066524737 Nir 316118421\Ex03.ConsoleUI\bin\Debug\Ex03.ConsoleUI.exe
+C:\Users\Itay Cohen\Desktop\לימודים\שנה ג\סמסטר ב\C#\DN_HIT_2020B_Ex03\B20 Ex03 Itay 066524737 Nir 316118421\Ex03.ConsoleUI\bin\Debug\Ex03.ConsoleUI.pdb
+C:\Users\Itay Cohen\Desktop\לימודים\שנה ג\סמסטר ב\C#\DN_HIT_2020B_Ex03\B20 Ex03 Itay 066524737 Nir 316118421\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.csprojAssemblyReference.cache
+C:\Users\Itay Cohen\Desktop\לימודים\שנה ג\סמסטר ב\C#\DN_HIT_2020B_Ex03\B20 Ex03 Itay 066524737 Nir 316118421\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.csproj.CoreCompileInputs.cache
+C:\Users\Itay Cohen\Desktop\לימודים\שנה ג\סמסטר ב\C#\DN_HIT_2020B_Ex03\B20 Ex03 Itay 066524737 Nir 316118421\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.exe
+C:\Users\Itay Cohen\Desktop\לימודים\שנה ג\סמסטר ב\C#\DN_HIT_2020B_Ex03\B20 Ex03 Itay 066524737 Nir 316118421\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.pdb

@@ -9,8 +9,8 @@ namespace Ex03.GarageLogic
         private eVehicleColor m_Color;
         private eDoors m_NumberOfDoors;
 
-        public Car(string i_OwnerName, string i_OwnerPhoneNumber, string i_LPN, string i_Model, float i_AmountOfEnergy, List<Wheel> i_Wheels,eVehicleState i_VehicleState ,eVehicleColor i_Color, eDoors i_Doors)
-            : base(i_LPN, i_AmountOfEnergy, i_Wheels, i_OwnerName, i_OwnerPhoneNumber,i_Model, new Energy(), i_VehicleState)
+        public Car(string i_OwnerName, string i_OwnerPhoneNumber, string i_LPN, string i_Model ,eVehicleColor i_Color, eDoors i_Doors)
+            : base(i_LPN, i_OwnerName, i_OwnerPhoneNumber,i_Model)
         {
             // need to implement base cnsr
             m_Color = i_Color;

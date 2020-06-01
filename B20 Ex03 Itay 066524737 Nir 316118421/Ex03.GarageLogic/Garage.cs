@@ -26,6 +26,30 @@ namespace Ex03.GarageLogic
             return LPNList;
         }
 
+        public List<string> GetAllVehicleLPN()
+        {
+            List<string> LPNList = new List<string>();
+            foreach (Vehicle vehicle in m_VehicleGenerator.VehicleList)
+            {
+                LPNList.Add(vehicle.LPN);
+            }
+
+            return LPNList;
+        }
+        public List<string> GetAllVehicleLPN(eEnergyType i_EnergyType)
+        {
+            List<string> LPNList = new List<string>();
+            foreach (Vehicle vehicle in m_VehicleGenerator.VehicleList)
+            {
+                if (vehicle.Energy.Type.Equals(i_EnergyType))
+                {
+                    LPNList.Add(vehicle.LPN);
+                }
+            }
+
+            return LPNList;
+        }
+
         public void ChangeVehicleState(string i_LPN, eVehicleState i_NewState)
         {
             Vehicle vehicleToChangeTheState = m_VehicleGenerator.GetVehicleByLPN(i_LPN);

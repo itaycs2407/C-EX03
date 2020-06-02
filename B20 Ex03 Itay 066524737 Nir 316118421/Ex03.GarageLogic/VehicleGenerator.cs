@@ -42,10 +42,10 @@ namespace Ex03.GarageLogic
             Energy newEnergyPack = new Energy(i_EnergyType, i_FuleType, EnergyCapacity, i_AmountOfEnergy);
             newCar.VehicleState = eVehicleState.OnRepair;
             newCar.Energy = newEnergyPack;
-            newCar.Wheels = addWheelsByNumber(4, 32, i_CurrentPressure, i_ManufactureName);
+            newCar.Wheels = addWheelsByNumber(4, Car.k_ManufactureMaxPressure, i_CurrentPressure, i_ManufactureName);
             addNewVehicle(newCar);
         }
-        public void AddNewMotor(float i_CurrentPressure, string i_OwnerName, string i_OwnerPhoneNumber, string i_LPN, string i_Model, float i_AmountOfEnergy, string i_ManufactureName,eLicense i_License, float i_EngineVolume, eEnergyType i_EnergyType,  Nullable<eFuelType> i_FuleType)
+        public void AddNewMotor(float i_CurrentPressure, string i_OwnerName, string i_OwnerPhoneNumber, string i_LPN, string i_Model, float i_AmountOfEnergy, string i_ManufactureName,eLicense i_License, int i_EngineVolume, eEnergyType i_EnergyType,  Nullable<eFuelType> i_FuleType)
         {
             if (i_EnergyType == eEnergyType.Electric && i_FuleType is eFuelType)
             {
@@ -56,7 +56,7 @@ namespace Ex03.GarageLogic
             Energy newEnergyPack = new Energy(i_EnergyType, i_FuleType, EnergyCapacity, i_AmountOfEnergy);
             newMotor.VehicleState = eVehicleState.OnRepair;
             newMotor.Energy = newEnergyPack;
-            newMotor.Wheels = addWheelsByNumber(2, 30, i_CurrentPressure, i_ManufactureName);
+            newMotor.Wheels = addWheelsByNumber(2, MotorCycle.k_ManufactureMaxPressure, i_CurrentPressure, i_ManufactureName);
             addNewVehicle(newMotor);
         }
         public void AddNewTruck(float i_CurrentPressure, string i_OwnerName, string i_OwnerPhoneNumber, string i_LPN, string i_Model, float i_AmountOfEnergy, float i_CargoVolume, bool i_IsDangerousMaterials,string i_ManufactureName)
@@ -65,7 +65,7 @@ namespace Ex03.GarageLogic
             Energy newEnergyPack = new Energy(eEnergyType.Fueled,eFuelType.Soler, 120, i_AmountOfEnergy);
             newTruck.VehicleState = eVehicleState.OnRepair;
             newTruck.Energy = newEnergyPack;
-            newTruck.Wheels =  addWheelsByNumber(16, 28, i_CurrentPressure, i_ManufactureName);
+            newTruck.Wheels =  addWheelsByNumber(16, Truck.k_ManufactureMaxPressure, i_CurrentPressure, i_ManufactureName);
             addNewVehicle(newTruck);
         }
         private List<Wheel> addWheelsByNumber(int i_NumberOfWheels, float i_MaxManufacturePressure, float i_CurrentPresure, string i_ManufactureName)
@@ -74,7 +74,14 @@ namespace Ex03.GarageLogic
             List<Wheel> ListToReturn = new List<Wheel>();
             for (i=0;i<i_NumberOfWheels;i++)
             {
-                ListToReturn.Add(new Wheel(i_ManufactureName, i_CurrentPresure, i_MaxManufacturePressure));
+                if (i_MaxManufacturePressure >= i_CurrentPresure)
+                {
+                    ListToReturn.Add(new Wheel(i_ManufactureName, i_CurrentPresure, i_MaxManufacturePressure));
+                }
+                else
+                {
+                    //need to throw exception
+                }
             }
             return ListToReturn;
         }

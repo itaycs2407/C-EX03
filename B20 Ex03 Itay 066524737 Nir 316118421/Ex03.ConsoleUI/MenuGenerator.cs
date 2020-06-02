@@ -1,9 +1,6 @@
 ﻿using Ex03.GarageLogic;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ex03.ConsoleUI
 {
@@ -11,92 +8,132 @@ namespace Ex03.ConsoleUI
     {
         public int GetUserInputMainMenu()
         {
-            int userInput;
-            string userInputStr;
             Console.WriteLine(r_Splash);
-            Console.WriteLine("Main Menu  -  C & C LTD.");
-            Console.WriteLine("=============================");
-            Console.WriteLine("1. Recive new Vehicle. ");
-            Console.WriteLine("2. Show all vehicle LPN by state. ");
-            Console.WriteLine("3. Change vehicle state by LPN ");
-            Console.WriteLine("4. Fill air in vehicle ");
-            Console.WriteLine("5. Fill fuled vehicle. ");
-            Console.WriteLine("6. Charge electric vehicle. ");
-            Console.WriteLine("7. Show vehicle details by LPN. ");
-            Console.WriteLine("8. Exit. ");
-            Console.WriteLine("-----------------------------");
-            Console.Write("Enter your choice : ");
-            userInputStr = Console.ReadLine();
-            while (int.TryParse(userInputStr, out userInput) && (userInput < 1 || userInput > 8))
-            {
-                Console.WriteLine("Please enter number of you choice (1-8)");
-                userInputStr = Console.ReadLine();
-            }
-
-            return userInput;
+            Console.WriteLine(@"Main Menu  -  C & C LTD.
+=============================
+1. Recive new Vehicle
+2. Show all vehicle LPN by state
+3. Change vehicle state by LPN
+4. Fill to MAX air presure in vehicle
+5. Fill fuled vehicle
+6. Charge electric vehicle
+7. Show vehicle details by LPN
+8. Exit
+-----------------------------
+Enter your choice : ");
+            return getUsersInput(1, 8);
         }
         public eVehicleState GetStateOfVehicle()
         {
-            int userInput;
-            string userInputStr;
-            Console.WriteLine("Choose state of vehicle :");
-            Console.WriteLine("---------------------------");
-            Console.WriteLine("1. On repair. ");
-            Console.WriteLine("2. Fixed. ");
-            Console.WriteLine("3. Payed. ");
-            Console.WriteLine("4. Return to previous menu. ");
-            Console.WriteLine("-----------------------------");
-            Console.Write("Enter your choice : ");
-            userInputStr = Console.ReadLine();
-            while (int.TryParse(userInputStr, out userInput) && (userInput < 1 || userInput > 4))
-            {
-                Console.WriteLine("Please enter number of you choice (1-4)");
-                userInputStr = Console.ReadLine();
-            }
-
-            return (eVehicleState)userInput;
+            Console.WriteLine(@"Choose state of vehicle :
+---------------------------
+1. On repair
+2. Fixed
+3. Payed
+4. Return to previous menu
+-----------------------------
+Enter your choice : ");
+            return (eVehicleState)getUsersInput(1, 4);
         }
 
         public eVehicleState GetStateFromUser(string i_MenuHeader)
         {
-            int userInput;
-            string userInputStr;
             Console.WriteLine(i_MenuHeader);
-            Console.WriteLine("---------------------------");
-            Console.WriteLine("1. On repair. ");
-            Console.WriteLine("2. Fixed. ");
-            Console.WriteLine("3. Payed. ");
-            Console.WriteLine("-----------------------------");
-            Console.Write("Enter your choice : ");
-            userInputStr = Console.ReadLine();
-            while (int.TryParse(userInputStr, out userInput) && (userInput < 1 || userInput > 3))
-            {
-                Console.WriteLine("Please enter number of you choice (1-3)");
-                userInputStr = Console.ReadLine();
-            }
-
-            return (eVehicleState)userInput;
+            Console.WriteLine(@"---------------------------
+1. On repair
+2. Fixed
+3. Payed
+-----------------------------
+Enter your choice : ");
+            return (eVehicleState)getUsersInput(1, 3);
         }
 
+        public void GetGenralDetailsFromUser(out string i_OwnerName, out string i_OwnerPhoneNumber, out string i_Model, out string i_LPN, out string i_WheelManufactureName, out float i_CurrentAirPressure, out float i_CurrentAmountOfEnergy)
+        {
+            string CurrentAirPressureSTR, CurrentAmountOfEnergySTR;
+            Console.Write("Enter owner name :");
+            i_OwnerName = Console.ReadLine();
+            Console.Write("Enter owner phonenumber :");
+            i_OwnerPhoneNumber = Console.ReadLine();
+            Console.Write("Enter vehicle LPN (License Plate Number) :");
+            i_LPN = Console.ReadLine();
+            Console.Write("Enter vehicle model :");
+            i_Model = Console.ReadLine();
+            Console.Write("Enter wheels manufacture name :");
+            i_WheelManufactureName = Console.ReadLine();
+            Console.Write("Enter current wheel pressure :");
+            CurrentAirPressureSTR = Console.ReadLine();
+            while (float.TryParse(CurrentAirPressureSTR, out i_CurrentAirPressure) && i_CurrentAirPressure < 0)
+            {
+                Console.Write("Wrong input. Enter current wheel pressure :");
+                CurrentAirPressureSTR = Console.ReadLine();
+            }
+            Console.Write("Enter current amount of energy :");
+            CurrentAmountOfEnergySTR = Console.ReadLine();
+            while (float.TryParse(CurrentAirPressureSTR, out i_CurrentAmountOfEnergy) && i_CurrentAmountOfEnergy < 0)
+            {
+                Console.Write("Wrong input. Enter current amount of energy :");
+                CurrentAmountOfEnergySTR = Console.ReadLine();
+            }
+        }
+
+        internal void GetTruckDetailsFromUser(out float i_CargoVolume, out bool i_IsDangerousMaterials)
+        {
+            string cargoVolumeSTR, boolUserInputSTR;
+            int boolUserInput;
+            Console.Write("Enter cargo volume :");
+            cargoVolumeSTR = Console.ReadLine();
+            while (float.TryParse(cargoVolumeSTR, out i_CargoVolume) && i_CargoVolume < 0)
+            {
+                Console.Write("Wrong input. Enter cargo volume :");
+                cargoVolumeSTR = Console.ReadLine();
+            }
+            Console.Write("Enter 1 if carry dangerous materials, 0 if not :");
+            boolUserInputSTR = Console.ReadLine();
+            while (int.TryParse(boolUserInputSTR, out boolUserInput) && boolUserInput != 0 && boolUserInput != 1)
+            {
+                Console.Write("Wrong input. Enter 1 if carry dangerous materials, 0 if not :");
+                boolUserInputSTR = Console.ReadLine();
+            }
+            i_IsDangerousMaterials = boolUserInput == 1 ? true : !true;
+        }
+
+        public eFuelType GetFueltypeFromUser()
+        {
+            Console.WriteLine("Choose fuel type :");
+            Console.WriteLine(@"---------------------------
+1. Octan 95
+2. Octan 96
+3. Octan 98
+4. Soler
+-----------------------------
+Enter your choice : ");
+            return (eFuelType)getUsersInput(1, 4);
+        }
         public int AddVehicle()
         {
-            int userInput;
-            string userInputStr;
             Console.WriteLine(r_Splash);
-            Console.WriteLine("Select type of car to recive");
-            Console.WriteLine("=============================");
-            Console.WriteLine("1. Recive electric car. ");
-            Console.WriteLine("2. Recive fueled car. ");
-            Console.WriteLine("3. Recive electric motorcycle. ");
-            Console.WriteLine("4. Recive fueled motorcycle ");
-            Console.WriteLine("5. Recive Truck ");
-            Console.WriteLine("6. Return to previous menu. ");
-            Console.WriteLine("-----------------------------");
-            Console.Write("Enter your choice : ");
-            userInputStr = Console.ReadLine();
-            while (int.TryParse(userInputStr, out userInput) && (userInput < 1 || userInput > 6))
+            Console.WriteLine(@"Select type of car to recive
+=============================
+1. Recive electric car
+2. Recive fueled car
+3. Recive electric motorcycle
+4. Recive fueled motorcycle
+5. Recive Truck
+6. Return to previous menu
+-----------------------------
+Enter your choice : ");
+            return getUsersInput(1, 6);
+        }
+
+        private int getUsersInput(int i_lowIntLimit, int i_highIntLimit)
+        {
+            int userInput = 0;
+            string userInputStr = Console.ReadLine();
+
+            while (int.TryParse(userInputStr, out userInput) && (userInput < i_lowIntLimit || userInput > i_highIntLimit))
             {
-                Console.WriteLine("Please enter number of you choice (1-6)");
+                Console.WriteLine("Please enter number of you choice ({0}-{1})", i_lowIntLimit, i_highIntLimit);
                 userInputStr = Console.ReadLine();
             }
 
@@ -117,23 +154,37 @@ namespace Ex03.ConsoleUI
             return userInputSTR;
         }
 
-        private readonly string r_Splash = 
-         "                                    _.--\"\"'-----,   `\"--.._\n"
-        + "                                .-''   _/_      ; .'\"----,`-,\n"
-        + "                               .'      :___:     ; :      ;;`.`.\n"
+        private readonly string r_Splash =
+         "                                    .--\"\"'-----,   `\"--..\n"
+        + "                                .-''   /      ; .'\"----,`-,\n"
+        + "                               .'      :_:     ; :      ;;`.`.\n"
         + "                              .      _.- _.-    .' :      ::  `..\n"
-        + "                           __;..----------------' :: ___  ::   ;;\n"
-        + "                      .--\"\". '           ___.....`:=(___)-' :--'`.\n"
+        + "                           _;..----------------' :: __  ::   ;;\n"
+        + "                      .--\"\". '           _.....`:=(_)-' :--'`.\n"
         + "                    .'   .'         .--''__       :       ==:    ;\n"
         + "                .--/    /        .'.''     ``-,   :         :   '`-.\n"
         + "             .\"', :    /       .'-`\\\\       .--.\\ :         :  ,   _\\\n"
-        + "            ;   ; |   ;       /:'  ;;      /__  \\\\:         :  :  /_\\\\\n"
+        + "            ;   ; |   ;       /:'  ;;      /_  \\\\:         :  :  /\\\\\n"
         + "            |\\_/  |   |      / \\__//      /\"--\\\\ \\:         :  : ;|`\\|    \n"
-        + "            : \"  /\\__/\\____//   \"\"\"      /     \\\\ :         :  : :|'||\n"
+        + "            : \"  /\\_/\\_//   \"\"\"      /     \\\\ :         :  : :|'||\n"
         + "          [\"\"\"\"\"\"\"\"\"--------........._  /      || ;      __.:--' :|//|\n"
-        + "           \"------....______         ].'|      // |--\"\"\"'__...-'`\\ \\//\n"
-        + "             `| C&C LTD |__;_...--'\": :  \\    //  |---\"\"\"      \\__\\_/\n"
+        + "           \"------....__         ].'|      // |--\"\"\"'__...-'`\\ \\//\n"
+        + "             `| C&C LTD |_;...--'\": :  \\    //  |---\"\"\"      \\_\\/\n"
         + "               \"\"\"\"\"\"\"\"\"'            \\ \\  \\_.//  /\n"
         + "                 `---'                \\ \\_     _'\n";
+
+        public float GetEnergyCapacityToAdd(string i_AskFromUser)
+        {
+            Console.Write(i_AskFromUser);
+            string userInputSTR = Console.ReadLine();
+            float userInput;
+            while (float.TryParse(userInputSTR, out userInput) && userInput < 0)
+            {
+                Console.Write("wrong input, " + i_AskFromUser);
+                userInputSTR = Console.ReadLine();
+            }
+
+            return userInput;
+        }
     }
 }

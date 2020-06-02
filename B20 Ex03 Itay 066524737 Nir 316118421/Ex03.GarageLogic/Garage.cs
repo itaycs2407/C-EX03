@@ -6,11 +6,33 @@ namespace Ex03.GarageLogic
 {
     public class Garage
     {
-        private VehicleGenerator m_VehicleGenerator;
-        public void ReciveNewVehilce(Vehicle i_Vehicle)
+        private VehicleGenerator m_VehicleGenerator = new VehicleGenerator();
+        public void ReciveNewTruck(string i_OwnerName, string i_OwnerPhoneNumber, string i_LPN, string i_Model, float i_CurrentPressure, 
+            string i_ManufactureName, float i_CargoVolume, bool i_IsDangerousMaterials,  float i_AmountOfEnergy)
         {
-
+            m_VehicleGenerator.AddNewTruck(i_CurrentPressure, i_OwnerName, i_OwnerPhoneNumber, i_LPN, i_Model,  i_AmountOfEnergy, i_CargoVolume, i_IsDangerousMaterials, i_ManufactureName);
         }
+        public void ReciveNewFueledCar(string i_OwnerName, string i_OwnerPhoneNumber, string i_LPN, string i_Model, float i_CurrentPressure,
+            string i_ManufactureName,  float i_AmountOfEnergy,eVehicleColor i_VehicleColor,eDoors i_Doors,eFuelType i_FuelType)
+        {
+            m_VehicleGenerator.AddNewCar(i_CurrentPressure, i_OwnerName, i_OwnerPhoneNumber, i_LPN, i_Model, i_AmountOfEnergy, i_ManufactureName,eEnergyType.Fueled, i_VehicleColor, i_Doors,i_FuelType);
+        }
+        public void ReciveNewElectricCar(string i_OwnerName, string i_OwnerPhoneNumber, string i_LPN, string i_Model, float i_CurrentPressure,
+            string i_ManufactureName, float i_AmountOfEnergy, eVehicleColor i_VehicleColor, eDoors i_Doors)
+        {
+            m_VehicleGenerator.AddNewCar(i_CurrentPressure, i_OwnerName, i_OwnerPhoneNumber, i_LPN, i_Model, i_AmountOfEnergy, i_ManufactureName, eEnergyType.Electric, i_VehicleColor, i_Doors, null);
+        }
+        public void ReciveNewFueledMotorcycle(string i_OwnerName, string i_OwnerPhoneNumber, string i_LPN, string i_Model, float i_CurrentPressure,
+            string i_ManufactureName, float i_AmountOfEnergy, eLicense i_License, int i_EngineVolume, eFuelType i_FuelType)
+        {
+            m_VehicleGenerator.AddNewMotor(i_CurrentPressure, i_OwnerName, i_OwnerPhoneNumber, i_LPN, i_Model, i_AmountOfEnergy, i_ManufactureName, i_License, i_EngineVolume, eEnergyType.Fueled, i_FuelType);
+        }
+        public void ReciveNewElectricMotorcycle(string i_OwnerName, string i_OwnerPhoneNumber, string i_LPN, string i_Model, float i_CurrentPressure,
+            string i_ManufactureName, float i_AmountOfEnergy, eLicense i_License, int i_EngineVolume)
+        {
+            m_VehicleGenerator.AddNewMotor(i_CurrentPressure, i_OwnerName, i_OwnerPhoneNumber, i_LPN, i_Model, i_AmountOfEnergy, i_ManufactureName,i_License,i_EngineVolume,eEnergyType.Electric, null);
+        }
+
         // check how to define list as a memeber like guys wants......
         public List<string> GetAllVehicleLPNByState(eVehicleState i_State)
         {

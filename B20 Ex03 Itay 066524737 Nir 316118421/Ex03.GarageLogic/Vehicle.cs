@@ -31,12 +31,14 @@ namespace Ex03.GarageLogic
             Model = i_Model;
         }
 
-        public abstract void FillEnergy(int i_AmountToFill);
+        public abstract void FillEnergy(float i_AmountToFill);
 
-        public string GetGeneralDetails()
+        public virtual string GetGeneralDetails()
         {
             string seperator = "===========================================";
             return string.Format("@\n {0} \n Vehicle model : {1} \n Owner Name : {2}\n Owner Phone : {3} \n Vehicle LPN : {4} \n {5}", seperator, this.model, this.ownerName, this.ownerPhoneNumber, this.lPN, seperator);
         }
+
+        public abstract void FillAirToMaxPressure();
     }
 }

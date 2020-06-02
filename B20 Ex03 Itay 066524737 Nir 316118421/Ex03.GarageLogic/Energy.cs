@@ -23,7 +23,19 @@ namespace Ex03.GarageLogic
             m_MaxEnergy = i_MaxEnergy;
             m_CurrentEnergy = i_CurrentEnergy;
         }
-        public virtual void FillEnergy(int i_AmountToFill)
+        public virtual void FillEnergy(float i_AmountToFill, eFuelType i_FuelType)
+        {
+            if (this.FuelType.Equals(i_FuelType))
+            {
+                m_CurrentEnergy = (m_CurrentEnergy + i_AmountToFill <= m_MaxEnergy) ? m_CurrentEnergy + i_AmountToFill : m_CurrentEnergy;
+            }
+            else
+            {
+                // need to throw exception
+            }
+        }
+
+        public virtual void FillEnergy(float i_AmountToFill)
         {
             m_CurrentEnergy = (m_CurrentEnergy + i_AmountToFill <= m_MaxEnergy) ? m_CurrentEnergy + i_AmountToFill : m_CurrentEnergy;
         }

@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+//CR ::Acion:: removed unused usings..
 
 namespace Ex03.GarageLogic
 {
     public class Garage
     {
         private VehicleGenerator m_VehicleGenerator = new VehicleGenerator();
+
+
         public void ReciveNewTruck(string i_OwnerName, string i_OwnerPhoneNumber, string i_LPN, string i_Model, float i_CurrentPressure, 
             string i_ManufactureName, float i_CargoVolume, bool i_IsDangerousMaterials,  float i_AmountOfEnergy)
         {
@@ -80,6 +81,7 @@ namespace Ex03.GarageLogic
             {
                 vehicleToChangeTheState.VehicleState = i_NewState;
             }
+            //CR ::Comment:: Guess an exception is needed
         }
         public void ChargeElectricVehicle(string i_LPN, int  i_MinutesToCharge)
         {
@@ -115,6 +117,7 @@ namespace Ex03.GarageLogic
                     wheel.CurrentAirPressure = wheel.ManufactureRecommendedAirPressure;
                 }
             }
+            //CR ::Comment:: Guess an exception is needed
         }
         public Vehicle GetVehicleForDetails(string i_LPN)
         {

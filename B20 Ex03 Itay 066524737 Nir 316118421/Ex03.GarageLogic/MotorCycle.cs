@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+//CR ::Action:: removed unused usings..
+
 
 namespace Ex03.GarageLogic
 {
@@ -20,21 +20,23 @@ namespace Ex03.GarageLogic
         public eLicense License { get => m_License; set => m_License = value; }
         public float EngineVolume { get => m_EngineVolume; set => m_EngineVolume = value; }
 
+        //CR ::Comment:: Why not having the same function in the abstract class ? feels like duplicate 
         public override void FillEnergy(float i_AmountToFill)
         {
             throw new NotImplementedException();
         }
         public override string ToString()
         {
-
-            string generalDetails = this.GetGeneralDetails();
+            //CR ::Action:: removed this.
+            string generalDetails = GetGeneralDetails();
             string spcificDetails = string.Format("@ \nEngine volume : {0} \n License {1}", m_EngineVolume.ToString(), m_License.ToString());
             return string.Format("@{0}\n {1}", generalDetails, spcificDetails);
         }
 
         public override void FillAirToMaxPressure()
         {
-            foreach (Wheel wheel in this.Wheels)
+            //CR ::Action:: removed this.
+            foreach (Wheel wheel in Wheels)
             {
                 wheel.CurrentAirPressure = wheel.ManufactureRecommendedAirPressure;
             }

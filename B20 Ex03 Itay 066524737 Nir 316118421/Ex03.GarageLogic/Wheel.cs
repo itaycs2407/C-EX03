@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿//CR ::Action:: removed unused usings..
 
 namespace Ex03.GarageLogic
 {
@@ -22,7 +20,9 @@ namespace Ex03.GarageLogic
     }
         public void FillAirPressure(int i_Pressure)
         {
-            m_CurrentAirPressure = CurrentAirPressure + i_Pressure <= m_ManufactureRecommendedAirPressure ? CurrentAirPressure + i_Pressure : CurrentAirPressure;
+            //CR ::Action:: Seperaed line for readability .. + dont we wont to make it maxPressure in a case which the query returns false?
+            m_CurrentAirPressure = CurrentAirPressure + i_Pressure <= m_ManufactureRecommendedAirPressure
+                ? CurrentAirPressure + i_Pressure : CurrentAirPressure;
             // need to throw exception
         }
     }

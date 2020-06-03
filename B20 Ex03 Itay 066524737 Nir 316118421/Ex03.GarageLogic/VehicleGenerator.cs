@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+//CR ::Action:: removed unused usings..
 
 namespace Ex03.GarageLogic
 {
@@ -38,6 +38,7 @@ namespace Ex03.GarageLogic
                 // need to throw exception - energy type is electric but fuel type is fule
             }
             Car newCar = new Car(i_OwnerName, i_OwnerPhoneNumber, i_LPN,i_Model, i_Color, i_Doors);
+            //CR ::Comment:: Why wont we set enum containting those values?
             float EnergyCapacity = i_EnergyType == eEnergyType.Electric ? (float) 2.1 : 60;
             Energy newEnergyPack = new Energy(i_EnergyType, i_FuleType, EnergyCapacity, i_AmountOfEnergy);
             newCar.VehicleState = eVehicleState.OnRepair;
@@ -52,8 +53,11 @@ namespace Ex03.GarageLogic
                 // need to throw exception - energy type is electric but fuel type is fule
             }
             MotorCycle newMotor = new MotorCycle(i_OwnerName, i_OwnerPhoneNumber, i_LPN, i_Model, i_License, i_EngineVolume);
+            //CR ::Comment:: Why wont we set enum containting those values?
             float EnergyCapacity = i_EnergyType == eEnergyType.Electric ? (float)1.2 : 7;
             Energy newEnergyPack = new Energy(i_EnergyType, i_FuleType, EnergyCapacity, i_AmountOfEnergy);
+
+            //TODO :: CR ::Comment:: Feels like we write duplicate lines in each viechile .. why shouldnt we move those lines in to add func / or side func?
             newMotor.VehicleState = eVehicleState.OnRepair;
             newMotor.Energy = newEnergyPack;
             newMotor.Wheels = addWheelsByNumber(2, MotorCycle.k_ManufactureMaxPressure, i_CurrentPressure, i_ManufactureName);
@@ -85,7 +89,5 @@ namespace Ex03.GarageLogic
             }
             return ListToReturn;
         }
-
-
     }
 }

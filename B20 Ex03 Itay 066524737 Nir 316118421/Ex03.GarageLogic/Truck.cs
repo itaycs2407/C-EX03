@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+//CR ::Comment:: removed unused usings..
 
 namespace Ex03.GarageLogic
 {
@@ -20,6 +19,7 @@ namespace Ex03.GarageLogic
         public float CargoVolume { get => m_CargoVolume; set => m_CargoVolume = value; }
         public bool IsDangerousMaterials { get => m_IsDangerousMaterials; set => m_IsDangerousMaterials = value; }
 
+        //CR ::Comment:: Why not having the same function in the abstract class ? feels like duplicate 
         public override void FillEnergy(float i_AmountToFill)
         {
             throw new NotImplementedException();
@@ -27,15 +27,17 @@ namespace Ex03.GarageLogic
 
         public override string ToString()
         {
-            
-            string generalDetails = this.GetGeneralDetails();
+            //CR ::Action:: removed this.
+            string generalDetails = GetGeneralDetails();
+            //CR ::Comment:: The @ meant to be a part of the string ? or did you mean just to put it for the formating?
             string spcificDetails = string.Format("@ \nCargo volume : {0} \n Carry dangerous materials {1}", m_CargoVolume, m_IsDangerousMaterials.ToString());
             return string.Format("@{0}\n {1}", generalDetails, spcificDetails);
         }
         
         public override void FillAirToMaxPressure()
         {
-            foreach (Wheel wheel in this.Wheels)
+            //CR ::Action:: removed this.
+            foreach (Wheel wheel in Wheels)
             {
                 wheel.CurrentAirPressure = wheel.ManufactureRecommendedAirPressure;
             }

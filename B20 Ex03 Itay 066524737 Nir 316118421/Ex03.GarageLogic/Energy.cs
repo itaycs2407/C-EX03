@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+//CR ::Action:: removed unused usings..
 
 namespace Ex03.GarageLogic
 {
@@ -25,9 +24,12 @@ namespace Ex03.GarageLogic
         }
         public virtual void FillEnergy(float i_AmountToFill, eFuelType i_FuelType)
         {
-            if (this.FuelType.Equals(i_FuelType))
+
+            //CR ::Action:: Removed this.
+            if (FuelType.Equals(i_FuelType))
             {
-                m_CurrentEnergy = (m_CurrentEnergy + i_AmountToFill <= m_MaxEnergy) ? m_CurrentEnergy + i_AmountToFill : m_CurrentEnergy;
+                //CR ::Action:: called the other implementation of FillEnergey  - there were two lines equaly the same
+                FillEnergy(i_AmountToFill);
             }
             else
             {

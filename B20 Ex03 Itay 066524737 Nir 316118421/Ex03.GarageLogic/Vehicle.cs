@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-//CR ::Action:: removed unused usings..
 
 namespace Ex03.GarageLogic
 {
@@ -9,10 +8,10 @@ namespace Ex03.GarageLogic
         // LPN  = License Plate Number
         private string lPN;
         private List<Wheel> wheels;
-        private string ownerName; //CR::Comment:: Is needed?
-        private string ownerPhoneNumber; //CR:: Comment:: Is Needed?
+        private string ownerName; 
+        private string ownerPhoneNumber; 
         private Energy energy;
-        private eVehicleState vehicleState; // Here?
+        private eVehicleState vehicleState;
 
         public string Model { get => model; set => model = value; }
         public string LPN { get => lPN; set => lPN = value; }
@@ -22,8 +21,9 @@ namespace Ex03.GarageLogic
         public eVehicleState VehicleState { get => vehicleState; set => vehicleState = value; }
         public Energy Energy { get => energy; set => energy = value; }
 
-        //CR ::Action:: Since threres no need of cars owner name - added default value
-        public Vehicle(string i_LPN, string i_Model,  string i_OwnerName = "", string i_OwnerPhoneNumber = "")
+        public override abstract string ToString();
+
+        public Vehicle(string i_LPN ,string i_Model,  string i_OwnerName, string i_OwnerPhoneNumber)
         {
             LPN = i_LPN;
             OwnerName = i_OwnerName;
@@ -31,29 +31,27 @@ namespace Ex03.GarageLogic
             Model = i_Model;
         }
 
-        //public abstract void FillEnergy(float i_AmountToFill);
-
-        //CR ::Action:: added base class implentation .. 
         public virtual void FillEnergy(float i_AmountToFill)
         {
             Energy.FillEnergy(i_AmountToFill);
         }
 
-        public virtual string GetGeneralDetails()
-        {
-            string seperator = "===========================================";
-            return string.Format("@\n {0} \n Vehicle model : {1} \n Owner Name : {2}\n Owner Phone : {3} \n Vehicle LPN : {4} \n {5}", seperator, this.model, this.ownerName, this.ownerPhoneNumber, this.lPN, seperator);
-        }
-
-        //public abstract void FillAirToMaxPressure();
-
-        //CR ::Action:: added the base class function .. 
         public virtual void FillAirToMaxPressure()
         {
             foreach (Wheel wheel in Wheels)
             {
-                wheel.CurrentAirPressure = wheel.ManufactureRecommendedAirPressure;
+                if(wheel.CurrentAirPressure < wheel.ManufactureRecommendedAirPressure)
+                {
+                    wheel.FillAirPressure(wheel.ManufactureRecommendedAirPressure - wheel.CurrentAirPressure);
+                }
             }
+        }
+
+        //CR :: check guys coding standarts..
+        protected virtual string GetGeneralDetails()
+        {
+            string seperator = "===========================================";
+            return string.Format("@\n {0} \n Vehicle model : {1} \n Owner Name : {2}\n Owner Phone : {3} \n Vehicle LPN : {4} \n {5}", seperator, this.model, this.ownerName, this.ownerPhoneNumber, this.lPN, seperator);
         }
     }
 }

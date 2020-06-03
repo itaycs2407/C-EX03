@@ -1,5 +1,4 @@
 ﻿using System;
-//CR ::Action:: removed unused usings..
 
 
 namespace Ex03.GarageLogic
@@ -27,19 +26,9 @@ namespace Ex03.GarageLogic
         }
         public override string ToString()
         {
-            //CR ::Action:: removed this.
             string generalDetails = GetGeneralDetails();
-            string spcificDetails = string.Format("@ \nEngine volume : {0} \n License {1}", m_EngineVolume.ToString(), m_License.ToString());
-            return string.Format("@{0}\n {1}", generalDetails, spcificDetails);
-        }
-
-        public override void FillAirToMaxPressure()
-        {
-            //CR ::Action:: removed this.
-            foreach (Wheel wheel in Wheels)
-            {
-                wheel.CurrentAirPressure = wheel.ManufactureRecommendedAirPressure;
-            }
+            string spcificDetails = string.Format(@" \nEngine volume : {0} \n License {1}", m_EngineVolume.ToString(), m_License.ToString());
+            return string.Format(@"{0}\n {1}", generalDetails, spcificDetails);
         }
     }
 }

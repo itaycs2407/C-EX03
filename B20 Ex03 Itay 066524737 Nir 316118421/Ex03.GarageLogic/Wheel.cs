@@ -1,5 +1,4 @@
-﻿//CR ::Action:: removed unused usings..
-
+﻿
 namespace Ex03.GarageLogic
 {
     class Wheel
@@ -18,9 +17,8 @@ namespace Ex03.GarageLogic
             m_CurrentAirPressure = i_CurrentAirPressure;
             m_ManufactureRecommendedAirPressure = i_ManufactureRecommendedAirPressure;
     }
-        public void FillAirPressure(int i_Pressure)
+        public void FillAirPressure(float i_Pressure)
         {
-            //CR ::Action:: Seperaed line for readability .. + dont we wont to make it maxPressure in a case which the query returns false?
             m_CurrentAirPressure = CurrentAirPressure + i_Pressure <= m_ManufactureRecommendedAirPressure
                 ? CurrentAirPressure + i_Pressure : CurrentAirPressure;
             // need to throw exception

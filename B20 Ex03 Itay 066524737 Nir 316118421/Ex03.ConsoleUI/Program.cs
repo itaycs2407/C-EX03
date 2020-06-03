@@ -12,6 +12,7 @@ namespace Ex03.ConsoleUI
     {
         static void Main(string[] args)
         {
+
             MenuGenerator menu = new MenuGenerator();
             Garage garage = new Garage();
             string userLPNInput, m_OwnerName, m_OwnerPhoneNumber, m_Model, m_LPN, m_WheelManufactureName;

@@ -1,5 +1,4 @@
 ﻿using System;
-//CR ::Comment:: removed unused usings..
 
 namespace Ex03.GarageLogic
 {
@@ -27,21 +26,10 @@ namespace Ex03.GarageLogic
 
         public override string ToString()
         {
-            //CR ::Action:: removed this.
             string generalDetails = GetGeneralDetails();
-            //CR ::Comment:: The @ meant to be a part of the string ? or did you mean just to put it for the formating?
-            string spcificDetails = string.Format("@ \nCargo volume : {0} \n Carry dangerous materials {1}", m_CargoVolume, m_IsDangerousMaterials.ToString());
-            return string.Format("@{0}\n {1}", generalDetails, spcificDetails);
+            string spcificDetails = string.Format(@" \nCargo volume : {0} \n Carry dangerous materials {1}", m_CargoVolume, m_IsDangerousMaterials.ToString());
+            return string.Format(@"{0}\n {1}", generalDetails, spcificDetails);
         }
-        
-        public override void FillAirToMaxPressure()
-        {
-            //CR ::Action:: removed this.
-            foreach (Wheel wheel in Wheels)
-            {
-                wheel.CurrentAirPressure = wheel.ManufactureRecommendedAirPressure;
-            }
-        }
-    }
+   }
 
 }

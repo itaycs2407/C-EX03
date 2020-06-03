@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-//CR ::Action:: removed unused usings..
 
 namespace Ex03.GarageLogic
 {
@@ -38,9 +37,10 @@ namespace Ex03.GarageLogic
                 // need to throw exception - energy type is electric but fuel type is fule
             }
             Car newCar = new Car(i_OwnerName, i_OwnerPhoneNumber, i_LPN,i_Model, i_Color, i_Doors);
-            //CR ::Comment:: Why wont we set enum containting those values?
+            //CR ::Comment:: Why wont we set enum containting those values? / or consts 
             float EnergyCapacity = i_EnergyType == eEnergyType.Electric ? (float) 2.1 : 60;
             Energy newEnergyPack = new Energy(i_EnergyType, i_FuleType, EnergyCapacity, i_AmountOfEnergy);
+            //TODO :: CR ::Comment:: Feels like we write duplicate lines in each viechile .. why shouldnt we move those lines in to add func / or side func?
             newCar.VehicleState = eVehicleState.OnRepair;
             newCar.Energy = newEnergyPack;
             newCar.Wheels = addWheelsByNumber(4, Car.k_ManufactureMaxPressure, i_CurrentPressure, i_ManufactureName);
@@ -67,6 +67,7 @@ namespace Ex03.GarageLogic
         {
             Truck newTruck = new Truck(i_OwnerName,i_OwnerPhoneNumber,i_LPN,i_Model, i_CargoVolume, i_IsDangerousMaterials);
             Energy newEnergyPack = new Energy(eEnergyType.Fueled,eFuelType.Soler, 120, i_AmountOfEnergy);
+            //TODO :: CR ::Comment:: Feels like we write duplicate lines in each viechile .. why shouldnt we move those lines in to add func / or side func?
             newTruck.VehicleState = eVehicleState.OnRepair;
             newTruck.Energy = newEnergyPack;
             newTruck.Wheels =  addWheelsByNumber(16, Truck.k_ManufactureMaxPressure, i_CurrentPressure, i_ManufactureName);

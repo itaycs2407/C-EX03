@@ -48,10 +48,11 @@ namespace Ex03.GarageLogic
         }
 
         //CR :: check guys coding standarts..
-        protected virtual string GetGeneralDetails()
+        protected  string GetGeneralDetails()
         {
+            // add energy details 
             string seperator = "===========================================";
-            return string.Format("@\n {0} \n Vehicle model : {1} \n Owner Name : {2}\n Owner Phone : {3} \n Vehicle LPN : {4} \n {5}", seperator, this.model, this.ownerName, this.ownerPhoneNumber, this.lPN, seperator);
+            return string.Format("\n {0} \n Vehicle model : {1} \n Owner Name : {2}\n Owner Phone : {3} \n Vehicle LPN : {4} \n {5}", seperator, this.model, this.ownerName, this.ownerPhoneNumber, this.lPN, seperator);
         }
     }
 }

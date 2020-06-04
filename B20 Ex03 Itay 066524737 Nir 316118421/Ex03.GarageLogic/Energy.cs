@@ -39,7 +39,15 @@ namespace Ex03.GarageLogic
 
         public virtual void FillEnergy(float i_AmountToFill)
         {
-            m_CurrentEnergy = (m_CurrentEnergy + i_AmountToFill <= m_MaxEnergy) ? m_CurrentEnergy + i_AmountToFill : m_CurrentEnergy;
+            if (m_CurrentEnergy + i_AmountToFill <= m_MaxEnergy)
+            {
+                m_CurrentEnergy = m_CurrentEnergy + i_AmountToFill;
+            }
+            else
+            {
+                throw new ValueOutOfRangeException(32, 0);
+            }
         }
+
     }
 }

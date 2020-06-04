@@ -143,7 +143,14 @@ namespace Ex03.ConsoleUI
              void printAllLpnAndGetInput(List<string> i_VehicleLPNToPring)
             {
                 Console.WriteLine("This is the list of all vehicles in the garage : \n");
-                Console.WriteLine(i_VehicleLPNToPring.ToString());
+                foreach (string LPN in i_VehicleLPNToPring)
+                {
+                    Console.WriteLine("LPN : {1}", LPN);
+                }
+                
+                // maybe need to delele it
+
+                //Console.WriteLine(i_VehicleLPNToPring.ToString());
                 userLPNInput = menu.SelectLPN(i_VehicleLPNToPring);
             }
 

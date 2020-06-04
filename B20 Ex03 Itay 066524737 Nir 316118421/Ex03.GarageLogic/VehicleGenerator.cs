@@ -5,7 +5,7 @@ namespace Ex03.GarageLogic
 {
     public class VehicleGenerator
     {
-        private List<Vehicle> m_VehicleList;
+        private List<Vehicle> m_VehicleList = new List<Vehicle>();
         private const float k_MotorFuelTank = 7;
         private const float k_MotorElectricCapacity = 1.2f;
         private const float k_CarFuelTank = 60;
@@ -44,6 +44,7 @@ namespace Ex03.GarageLogic
             if (i_EnergyType == eEnergyType.Electric && i_FuleType is eFuelType)
             {
                 // need to throw exception - energy type is electric but fuel type is fule
+                throw new ArgumentException();
             }
             Car newCar = new Car(i_OwnerName, i_OwnerPhoneNumber, i_LPN,i_Model, i_Color, i_Doors);
             float EnergyCapacity = i_EnergyType == eEnergyType.Electric ? (float) k_CarElectricCapacity : k_CarFuelTank;

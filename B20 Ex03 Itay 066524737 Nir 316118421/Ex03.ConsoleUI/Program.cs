@@ -22,7 +22,11 @@ namespace Ex03.ConsoleUI
             List<string> electricVehicleLPNList;
             List<string> fueldVehicleLPNList;
             eVehicleState userStateInput;
+            eLicense m_Lisence;
+            eVehicleColor m_Color;
+            eDoors m_Doors;
             float m_CurrentAirPressure, m_CargoVolume, m_CurrentAmountOfEnergy;
+            int m_EngineVolume;
             bool m_IsDangerousMaterials;
             while (userInput >= 1 && userInput <=8) 
             {
@@ -31,28 +35,23 @@ namespace Ex03.ConsoleUI
                     case 1: // Recive new Vehicle.
                         case1UserInput = menu.AddVehicle();
                         menu.GetGenralDetailsFromUser(out m_OwnerName, out m_OwnerPhoneNumber, out m_Model, out m_LPN, out m_WheelManufactureName, out m_CurrentAirPressure,out m_CurrentAmountOfEnergy);
-                        switch (case1UserInput)
-                        {
+                        switch (case1UserInput) { 
                             case 1:
                                 // Recive electric car.
-                                menu.GetElectricCarDetailsFromUser(out m_CargoVolume, out m_IsDangerousMaterials);
-                                garage.ReciveNewElectricCar(m_OwnerName, m_OwnerPhoneNumber, m_LPN, m_Model, m_CurrentAirPressure, m_WheelManufactureName, m_CargoVolume, m_IsDangerousMaterials, m_CurrentAmountOfEnergy);
+                                getDetailsAndCreateCar(eEnergyType.Electric);
                                 break;
                             case 2:
-                                // Recive fueled car.
-                                menu.GetFueledCarDetailsFromUser(out m_CargoVolume, out m_IsDangerousMaterials);
-                                garage.ReciveNewFueledCar(m_OwnerName, m_OwnerPhoneNumber, m_LPN, m_Model, m_CurrentAirPressure, m_WheelManufactureName, m_CargoVolume, m_IsDangerousMaterials, m_CurrentAmountOfEnergy);
+                                // Recive fueled car.`
+                                getDetailsAndCreateCar(eEnergyType.Fueled);
                                 break;
                             case 3:
                                 // Recive electric motorcycle.
-                                menu.GetElectricMotorcycleDetailsFromUser(out m_CargoVolume, out m_IsDangerousMaterials);
-                                garage.ReciveNewElectricMotorcycle(m_OwnerName, m_OwnerPhoneNumber, m_LPN, m_Model, m_CurrentAirPressure, m_WheelManufactureName, m_CargoVolume, m_IsDangerousMaterials, m_CurrentAmountOfEnergy);
+                                getDetailsAndCreateMotor(eEnergyType.Electric);
                                 break;
                             case 4:
                                 // Recive fueled motorcycle
-                                menu.GetFueledMotorcycleDetailsFromUser(out m_CargoVolume, out m_IsDangerousMaterials);
-                                garage.ReciveNewFueledMotorcycle(m_OwnerName, m_OwnerPhoneNumber, m_LPN, m_Model, m_CurrentAirPressure, m_WheelManufactureName, m_CargoVolume, m_IsDangerousMaterials, m_CurrentAmountOfEnergy);
-                                break;
+                                getDetailsAndCreateMotor(eEnergyType.Fueled);
+                                break; 
                             case 5:
                                 // Recive Truck
                                 menu.GetTruckDetailsFromUser(out m_CargoVolume, out m_IsDangerousMaterials);
@@ -140,11 +139,39 @@ namespace Ex03.ConsoleUI
                 }
                 userInput = menu.GetUserInputMainMenu();
             }
+            
              void printAllLpnAndGetInput(List<string> i_VehicleLPNToPring)
             {
                 Console.WriteLine("This is the list of all vehicles in the garage : \n");
                 Console.WriteLine(i_VehicleLPNToPring.ToString());
                 userLPNInput = menu.SelectLPN(i_VehicleLPNToPring);
+            }
+
+            void getDetailsAndCreateCar(eEnergyType i_EnergyType)
+            {
+                menu.GetCarDetailsFromUser(out m_Color, out m_Doors);
+                if (i_EnergyType == eEnergyType.Electric)
+                {
+                    garage.ReciveNewElectricCar(m_OwnerName, m_OwnerPhoneNumber, m_LPN, m_Model, m_CurrentAirPressure, m_WheelManufactureName, m_CurrentAmountOfEnergy, m_Color, m_Doors);
+                }
+                else
+                {
+                    garage.ReciveNewFueledCar(m_OwnerName, m_OwnerPhoneNumber, m_LPN, m_Model, m_CurrentAirPressure, m_WheelManufactureName, m_CurrentAmountOfEnergy, m_Color, m_Doors);
+                }
+
+            }
+            void getDetailsAndCreateMotor(eEnergyType i_EnergyType)
+            {
+                menu.GetMotorcycleDetailsFromUser(out m_Lisence, out m_EngineVolume);
+                if (i_EnergyType == eEnergyType.Electric)
+                {
+                    garage.ReciveNewElectricMotorcycle(m_OwnerName, m_OwnerPhoneNumber, m_LPN, m_Model, m_CurrentAirPressure, m_WheelManufactureName, m_CurrentAmountOfEnergy, m_Lisence, m_EngineVolume);
+                }
+                else
+                {
+                    garage.ReciveNewFueledMotorcycle(m_OwnerName, m_OwnerPhoneNumber, m_LPN, m_Model, m_CurrentAirPressure, m_WheelManufactureName, m_CurrentAmountOfEnergy, m_Lisence, m_EngineVolume);
+                }
+
             }
 
         }

@@ -77,7 +77,31 @@ Enter your choice : ");
             }
         }
 
-        internal void GetTruckDetailsFromUser(out float i_CargoVolume, out bool i_IsDangerousMaterials)
+       
+        internal void GetCarDetailsFromUser(out eVehicleColor io_Color, out eDoors io_Doors)
+        {
+            Console.WriteLine("Select Color :");
+            Console.WriteLine(@"---------------------------
+1. Red.
+2. White.
+3. Black.
+4. Silver.
+-----------------------------
+Enter your choice : ");
+            io_Color = (eVehicleColor)getUsersInput(1, 4);
+            Console.WriteLine("Select number of doors :");
+            Console.WriteLine(@"---------------------------
+1. 2 doors - Cuppe.
+2. 3 doors - TreeDoorCuppe.
+3. 4 doors - Sedan.
+4. 5 doors - Wagen.
+-----------------------------
+Enter your choice : ");
+            io_Doors = (eDoors)getUsersInput(1, 4);
+        }
+
+
+    internal void GetTruckDetailsFromUser(out float i_CargoVolume, out bool i_IsDangerousMaterials)
         {
             string cargoVolumeSTR, boolUserInputSTR;
             int boolUserInput;
@@ -98,6 +122,27 @@ Enter your choice : ");
             i_IsDangerousMaterials = boolUserInput == 1 ? true : !true;
         }
 
+        internal void GetMotorcycleDetailsFromUser(out eLicense io_Lisence, out int io_EngineVolume)
+        {
+            string engineVolumeStr;
+            Console.Write("Enter engine volume :");
+            engineVolumeStr = Console.ReadLine();
+            while (int.TryParse(engineVolumeStr, out io_EngineVolume) && io_EngineVolume < 1)
+            {
+                Console.Write("Wrong input. Enter engine volume :");
+                engineVolumeStr = Console.ReadLine();
+            }
+            Console.WriteLine("Select license :");
+            Console.WriteLine(@"---------------------------
+1. A
+2. A1
+3. AA
+4. B
+-----------------------------
+Enter your choice : ");
+            io_Lisence = (eLicense)getUsersInput(1, 4);
+        }
+           
         public eFuelType GetFueltypeFromUser()
         {
             Console.WriteLine("Choose fuel type :");

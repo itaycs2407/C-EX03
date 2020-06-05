@@ -23,18 +23,7 @@ namespace Ex03.ConsoleUI
 Enter your choice : "); 
             return getUsersInput(1, 8);
         }
-        public eVehicleState GetStateOfVehicle()
-        {
-            Console.WriteLine(@"Choose state of vehicle :
----------------------------
-1. On repair
-2. Fixed
-3. Payed
-4. Return to previous menu
------------------------------
-Enter your choice : ");
-            return (eVehicleState)(getUsersInput(1, 4)-1);
-        }
+        
 
         public eVehicleState GetStateFromUser(string i_MenuHeader)
         {
@@ -49,31 +38,47 @@ Enter your choice : ");
             return (eVehicleState)(getUsersInput(1, 3)-1);
         }
 
-        public void GetGenralDetailsFromUser(out string i_OwnerName, out string i_OwnerPhoneNumber, out string i_Model, out string i_LPN, out string i_WheelManufactureName, out float i_CurrentAirPressure, out float i_CurrentAmountOfEnergy)
+        public void GetGenralDetailsFromUser(out string i_OwnerName, out string i_OwnerPhoneNumber, out string i_Model, out string i_WheelManufactureName)
         {
-            string CurrentAirPressureSTR, CurrentAmountOfEnergySTR;
             Console.Write("Enter owner name :");
             i_OwnerName = Console.ReadLine();
             Console.Write("Enter owner phonenumber :");
             i_OwnerPhoneNumber = Console.ReadLine();
-            Console.Write("Enter vehicle LPN (License Plate Number) :");
-            i_LPN = Console.ReadLine();
             Console.Write("Enter vehicle model :");
             i_Model = Console.ReadLine();
             Console.Write("Enter wheels manufacture name :");
             i_WheelManufactureName = Console.ReadLine();
-            Console.Write("Enter current wheel pressure :");
+        
+        }
+
+        internal void GetVehicleLPN(out string i_LPN)
+        {
+            Console.Write("Enter vehicle LPN (License Plate Number) :");
+            i_LPN = Console.ReadLine();
+        }
+
+        internal void GetWheelPressure(out float io_CurrentAirPressure)
+        {
+            string CurrentAirPressureSTR;
+            Console.Write("Enter current wheel pressure (must be below manufacture max pressure) : ");
             CurrentAirPressureSTR = Console.ReadLine();
-            while (float.TryParse(CurrentAirPressureSTR, out i_CurrentAirPressure) && i_CurrentAirPressure < 0 )
+            while (float.TryParse(CurrentAirPressureSTR, out io_CurrentAirPressure) && (io_CurrentAirPressure < 0 ))
             {
-                Console.Write("Wrong input. Enter current wheel pressure :");
+                Console.Write("Wrong input. Wheel pressure cant be under 0. Enter current wheel pressure :");
                 CurrentAirPressureSTR = Console.ReadLine();
             }
+        }
+
+        internal void GetCurrentEnergyCapacity(out float io_CurrentAmountOfEnergy)
+        {
+            string  CurrentAmountOfEnergySTR;
+
             Console.Write("Enter current amount of energy :");
             CurrentAmountOfEnergySTR = Console.ReadLine();
-            while (float.TryParse(CurrentAirPressureSTR, out i_CurrentAmountOfEnergy) && i_CurrentAmountOfEnergy < 0)
+            CurrentAmountOfEnergySTR.Replace(" ", "");
+            while (float.TryParse(CurrentAmountOfEnergySTR, out io_CurrentAmountOfEnergy) && (CurrentAmountOfEnergySTR == string.Empty) || (io_CurrentAmountOfEnergy < 0 ))
             {
-                Console.Write("Wrong input. Enter current amount of energy :");
+                Console.Write("Wrong input. Current energy capacity cant be under 0. Enter current amount of energy :");
                 CurrentAmountOfEnergySTR = Console.ReadLine();
             }
         }
@@ -89,7 +94,7 @@ Enter your choice : ");
 4. Silver.
 -----------------------------
 Enter your choice : ");
-            io_Color = (eVehicleColor)getUsersInput(1, 4);
+            io_Color = (eVehicleColor)(getUsersInput(1, 4) - 1);
             Console.WriteLine("Select number of doors :");
             Console.WriteLine(@"---------------------------
 1. 2 doors - Cuppe.
@@ -98,7 +103,7 @@ Enter your choice : ");
 4. 5 doors - Wagen.
 -----------------------------
 Enter your choice : ");
-            io_Doors = (eDoors)getUsersInput(1, 4);
+            io_Doors = (eDoors)(getUsersInput(1, 4) - 1);
         }
 
 
@@ -141,7 +146,7 @@ Enter your choice : ");
 4. B
 -----------------------------
 Enter your choice : ");
-            io_Lisence = (eLicense)getUsersInput(1, 4);
+            io_Lisence = (eLicense)(getUsersInput(1, 4) - 1);
         }
            
         public eFuelType GetFueltypeFromUser()
@@ -154,7 +159,7 @@ Enter your choice : ");
 4. Soler
 -----------------------------
 Enter your choice : ");
-            return (eFuelType)getUsersInput(1, 4);
+            return (eFuelType)(getUsersInput(1, 4) - 1);
         }
         public int AddVehicle()
         {

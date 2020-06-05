@@ -6,9 +6,9 @@ namespace Ex03.GarageLogic
     public class VehicleGenerator
     {
         private List<Vehicle> m_VehicleList = new List<Vehicle>();
-        private const float k_MotorFuelTank = 7;
-        private const float k_MotorElectricCapacity = 1.2f;
-        public  const float k_CarFuelTank = 60;
+        public const float k_MotorFuelTank = 7;
+        public const float k_MotorElectricCapacity = 1.2f;
+        public const float k_CarFuelTank = 60;
         public const float k_CarElectricCapacity = 2.1f;
         public const float k_TruckFuelTank = 120;
         private const int k_CarNumberOfWheels = 4;

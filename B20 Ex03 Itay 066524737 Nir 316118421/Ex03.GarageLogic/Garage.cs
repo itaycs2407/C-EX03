@@ -28,11 +28,31 @@ namespace Ex03.GarageLogic
         {
             m_VehicleGenerator.AddNewMotor(i_CurrentPressure, i_OwnerName, i_OwnerPhoneNumber, i_LPN, i_Model, i_AmountOfEnergy, i_ManufactureName, i_License, i_EngineVolume, eEnergyType.Fueled, eFuelType.Octan95);
         }
-        
+
+        public bool IsExist(string m_LPN)
+        {
+            return m_VehicleGenerator.GetVehicleByLPN(m_LPN) != null;
+        }
+
+        public bool IsValidWheelPressureForCar(float m_CurrentAirPressure)
+        {
+            return m_CurrentAirPressure <= Car.k_ManufactureMaxPressure;
+        }
+
         public void ReciveNewElectricMotorcycle(string i_OwnerName, string i_OwnerPhoneNumber, string i_LPN, string i_Model, float i_CurrentPressure,
             string i_ManufactureName, float i_AmountOfEnergy, eLicense i_License,int i_EngineVolume)
         {
             m_VehicleGenerator.AddNewMotor(i_CurrentPressure, i_OwnerName, i_OwnerPhoneNumber, i_LPN, i_Model, i_AmountOfEnergy, i_ManufactureName,i_License,i_EngineVolume,eEnergyType.Electric, null);
+        }
+
+        public bool IsValidCapacityForElectricCar(float i_CurrentAmountOfEnergy)
+        {
+            return i_CurrentAmountOfEnergy <= VehicleGenerator.k_CarElectricCapacity;
+        }
+
+        public bool IsValidCapacityForFueledCar(float i_CurrentAmountOfEnergy)
+        {
+            return i_CurrentAmountOfEnergy <= VehicleGenerator.k_CarFuelTank;
         }
 
         // check how to define list as a memeber like guys wants......
@@ -61,6 +81,10 @@ namespace Ex03.GarageLogic
             return LPNList;
         }
 
+        public bool IsValidCapacityForElectricMotor(float i_CurrentAmountOfEnergy)
+        {
+            return i_CurrentAmountOfEnergy <= VehicleGenerator.k_MotorElectricCapacity;
+        }
 
         public List<string> GetAllVehicleLPN(eEnergyType i_EnergyType)
         {
@@ -74,6 +98,11 @@ namespace Ex03.GarageLogic
             }
 
             return LPNList;
+        }
+
+        public bool IsValidCapacityForFueledMotor(float i_CurrentAmountOfEnergy)
+        {
+            return i_CurrentAmountOfEnergy <= VehicleGenerator.k_MotorFuelTank;
         }
 
         public void ChangeVehicleState(string i_LPN, eVehicleState i_NewState)
@@ -127,5 +156,15 @@ namespace Ex03.GarageLogic
             return m_VehicleGenerator.GetVehicleByLPN(i_LPN);
         }
 
+        public bool IsValidWheelPressureForMotor(float i_CurrentAirPressure)
+        {
+            return i_CurrentAirPressure <= MotorCycle.k_ManufactureMaxPressure;
+        }
+
+        public bool IsValidWheelPressureForTruck(float i_CurrentAirPressure)
+        {
+            return i_CurrentAirPressure <= Truck.k_ManufactureMaxPressure;
+
+        }
     }
 }

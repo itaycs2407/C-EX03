@@ -20,8 +20,8 @@ namespace Ex03.GarageLogic
         public override string ToString()
         {
             string generalDetails = GetGeneralDetails();
-            string seperator = "================= OTHER =========================";
-            string specificDetails = string.Format("\n{0}\nType of vehicle : {1}\nNumber of doors : {2}, {3} \nColor :  {4}", seperator, this.GetType().Name, (int)m_NumberOfDoors,m_NumberOfDoors, m_Color.ToString());
+            string seperator = "\n================= OTHER =========================";
+            string specificDetails = string.Format("\n{0}\nType of vehicle : {1}\nNumber of doors : {2}, {3} \nColor :  {4}", seperator, this.GetType().Name, (int)m_NumberOfDoors + 2,m_NumberOfDoors, m_Color.ToString());
 
             return string.Format("{0}\n{1}", generalDetails, specificDetails);
         }

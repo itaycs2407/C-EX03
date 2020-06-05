@@ -22,7 +22,7 @@ namespace Ex03.GarageLogic
         public override string ToString()
         {
             string generalDetails = GetGeneralDetails();
-            string seperator = "================= OTHER =========================";
+            string seperator = "\n================= OTHER =========================";
             string spcificDetails = string.Format("{0}\nType of vehicle : {1} \nCargo volume : {2} \nCarry dangerous materials : {3}", seperator, this.GetType().Name, m_CargoVolume, m_IsDangerousMaterials.ToString());
             return string.Format("{0}\n{1}", generalDetails, spcificDetails);
         }

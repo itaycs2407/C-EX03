@@ -52,7 +52,7 @@ namespace Ex03.GarageLogic
         {
             // add energy details 
             string seperator = "================= GENERAL =======================";
-            return string.Format("\n{0} \nOwner Name : {1}\nOwner Phone : {2} \nVehicle LPN : {3} \nVehicle model : {4} \n{5}\n{6} ", seperator, this.ownerName, this.ownerPhoneNumber, this.lPN, this.model,  Wheels[0].ToString(),this.energy.ToString());
+            return string.Format("\n{0} \nOwner Name : {1}\nOwner Phone : {2} \nVehicle LPN : {3} \nVehicle model : {4} \nVehicle state : {5} \n{6}\n{7} ", seperator, this.ownerName, this.ownerPhoneNumber, this.lPN, this.model,this.VehicleState,  Wheels[0].ToString(),this.energy.ToString());
         }
     }
 }

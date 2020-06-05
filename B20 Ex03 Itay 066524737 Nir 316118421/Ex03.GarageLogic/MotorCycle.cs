@@ -22,8 +22,8 @@ namespace Ex03.GarageLogic
         public override string ToString()
         {
             string generalDetails = GetGeneralDetails();
-            string seperator = "================= OTHER =========================";
-            string spcificDetails = string.Format("\n{0}\nType of vehicle : {1}\nEngine volume : {2} \nLicense {3}", seperator, this.GetType().Name, m_EngineVolume.ToString(), m_License.ToString());
+            string seperator = "\n================= OTHER =========================";
+            string spcificDetails = string.Format("\n{0}\nType of vehicle : {1}\nEngine volume : {2} \nLicense : {3}", seperator, this.GetType().Name, m_EngineVolume.ToString(), m_License.ToString());
             return string.Format("{0}\n{1}", generalDetails, spcificDetails);
         }
     }

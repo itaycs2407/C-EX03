@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 using Ex03.GarageLogic;
 using Microsoft.Win32;
 
@@ -31,26 +32,87 @@ namespace Ex03.ConsoleUI
                 {
                     case 1: // Recive new Vehicle.
                         case1UserInput = menu.AddVehicle();
-                        menu.GetGenralDetailsFromUser(out m_OwnerName, out m_OwnerPhoneNumber, out m_Model, out m_LPN, out m_WheelManufactureName, out m_CurrentAirPressure,out m_CurrentAmountOfEnergy);
+                        if (case1UserInput == 6)
+                        {
+                            break;
+                        }
+                        menu.GetVehicleLPN(out m_LPN);
+                        // check if vehicle already in the garage
+                        if (garage.IsExist(m_LPN))
+                        {
+                            Console.WriteLine("The vehicle is already in the garage. changhing its state to \"On Repair\"");
+                            garage.ChangeVehicleState(m_LPN, eVehicleState.OnRepair);
+                            break;
+                        }
+
+                        menu.GetGenralDetailsFromUser(out m_OwnerName, out m_OwnerPhoneNumber, out m_Model, out m_WheelManufactureName);
                         switch (case1UserInput) { 
                             case 1:
-                                // Recive electric car.
+                                //Recive electric car.
+                                //get valid wheel current pressure
+                                getUserInputForCarWheelPressure();
+                                
+                                // get valid current energy 
+                                do
+                                {
+                                    menu.GetCurrentEnergyCapacity(out m_CurrentAmountOfEnergy);
+                                }
+                                while (!garage.IsValidCapacityForElectricCar(m_CurrentAmountOfEnergy));
+
                                 getDetailsAndCreateCar(eEnergyType.Electric);
                                 break;
                             case 2:
                                 // Recive fueled car.
+
+                                //get valid wheel current pressure
+                                getUserInputForCarWheelPressure();
+                                // get valid current energy 
+                                do
+                                {
+                                    menu.GetCurrentEnergyCapacity(out m_CurrentAmountOfEnergy);
+                                }
+                                while (!garage.IsValidCapacityForFueledCar(m_CurrentAmountOfEnergy));
+
                                 getDetailsAndCreateCar(eEnergyType.Fueled);
                                 break;
                             case 3:
                                 // Recive electric motorcycle.
+                                //get valid wheel current pressure
+                                getUserInputForMotorWheelPressure();
+                                // get valid current energy 
+                                do
+                                {
+                                    menu.GetCurrentEnergyCapacity(out m_CurrentAmountOfEnergy);
+                                }
+                                while (!garage.IsValidCapacityForElectricMotor(m_CurrentAmountOfEnergy));
+
                                 getDetailsAndCreateMotor(eEnergyType.Electric);
                                 break;
                             case 4:
                                 // Recive fueled motorcycle
+                                //get valid wheel current pressure
+                                getUserInputForMotorWheelPressure();
+                                // get valid current energy 
+                                do
+                                {
+                                    menu.GetCurrentEnergyCapacity(out m_CurrentAmountOfEnergy);
+                                }
+                                while (!garage.IsValidCapacityForFueledMotor(m_CurrentAmountOfEnergy));
+
                                 getDetailsAndCreateMotor(eEnergyType.Fueled);
                                 break; 
                             case 5:
                                 // Recive Truck
+
+                                //get valid wheel current pressure
+                                getUserInputForTruckWheelPressure();
+                                // get valid current energy 
+                                do
+                                {
+                                    menu.GetCurrentEnergyCapacity(out m_CurrentAmountOfEnergy);
+                                }
+                                while (!garage.IsValidCapacityForFueledMotor(m_CurrentAmountOfEnergy));
+
                                 menu.GetTruckDetailsFromUser(out m_CargoVolume, out m_IsDangerousMaterials);
                                 garage.ReciveNewTruck(m_OwnerName, m_OwnerPhoneNumber, m_LPN, m_Model, m_CurrentAirPressure, m_WheelManufactureName, m_CargoVolume, m_IsDangerousMaterials, m_CurrentAmountOfEnergy);
                                 break;
@@ -85,7 +147,7 @@ namespace Ex03.ConsoleUI
                             //print the LPN list and get input from user on witch LPN he want to change state ->userLPNInput
                             printAllLpnAndGetInput(vehicleLPNList, true);
                             // tell the user what is the current state of the selected LPN and than get input for state
-                            Console.WriteLine("The current state of the vehicle is : {0}, in case you choose the new state as the current state,\n No changes will be made !",garage.GetVehicleForDetails(userLPNInput).VehicleState.ToString());
+                            Console.WriteLine("The current state of the vehicle is : {0}, in case you choose the new state as the current state,\nfNo changes will be made !",garage.GetVehicleForDetails(userLPNInput).VehicleState.ToString());
                             userStateInput = menu.GetStateFromUser("Choose the new stage :");
                             // add the logic for exit the menu
                             
@@ -161,8 +223,13 @@ namespace Ex03.ConsoleUI
                             printAllLpnAndGetInput(vehicleLPNList, true);
                             // need to add : input from user 
                             Vehicle elctricVeheicle = garage.GetVehicleForDetails(userLPNInput);
-                            Console.WriteLine("The current energy of the vehicle is {0} hours out of {1} hours", elctricVeheicle.Energy.CurrentEnergy, elctricVeheicle.Energy.MaxEnergy);
-                            float numberOfMinuesToCharge = menu.GetEnergyCapacityToAdd("Please enter number of minutes to charge : ");
+                            Console.WriteLine(@"The current energy of the vehicle is {0} hours out of {1} hours", elctricVeheicle.Energy.CurrentEnergy, elctricVeheicle.Energy.MaxEnergy);
+                            float numberOfMinuesToCharge;
+                            do
+                            {
+                                numberOfMinuesToCharge = menu.GetEnergyCapacityToAdd(string.Format(@"Please enter number of minutes to charge between 1 and {0}: ", elctricVeheicle.Energy.MaxEnergy - elctricVeheicle.Energy.CurrentEnergy));
+                            }
+                            while (numberOfMinuesToCharge + elctricVeheicle.Energy.CurrentEnergy > elctricVeheicle.Energy.MaxEnergy);
                             
                             // need to be surronding with try-catch
                             // charge the vehicle
@@ -201,7 +268,6 @@ namespace Ex03.ConsoleUI
             }
 
         }
-            
         private static void printAllLpnAndGetInput(List<string> i_VehicleLPNToPring, bool i_GetInput)
         {
             Console.WriteLine("This is the list of all vehicles in the garage : ");
@@ -240,5 +306,32 @@ namespace Ex03.ConsoleUI
                 }
 
             }
+        private static void getUserInputForCarWheelPressure()
+        {
+            do
+            {
+                menu.GetWheelPressure(out m_CurrentAirPressure);
+            }
+            while (!garage.IsValidWheelPressureForCar(m_CurrentAirPressure));
+
+        }
+        private static void getUserInputForMotorWheelPressure()
+        {
+            do
+            {
+                menu.GetWheelPressure(out m_CurrentAirPressure);
+            }
+            while (!garage.IsValidWheelPressureForMotor(m_CurrentAirPressure));
+
+        }
+        private static void getUserInputForTruckWheelPressure()
+        {
+            do
+            {
+                menu.GetWheelPressure(out m_CurrentAirPressure);
+            }
+            while (!garage.IsValidWheelPressureForTruck(m_CurrentAirPressure));
+
+        }
     }
 }

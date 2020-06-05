@@ -31,7 +31,7 @@ namespace Ex03.GarageLogic
             Model = i_Model;
         }
 
-        public virtual void FillEnergy(float i_AmountToFill)
+        public void FillEnergy(float i_AmountToFill)
         {
             Energy.FillEnergy(i_AmountToFill);
         }
@@ -51,8 +51,8 @@ namespace Ex03.GarageLogic
         protected  string GetGeneralDetails()
         {
             // add energy details 
-            string seperator = "===========================================";
-            return string.Format("\n {0} \n Vehicle model : {1} \n Owner Name : {2}\n Owner Phone : {3} \n Vehicle LPN : {4} \n {5}", seperator, this.model, this.ownerName, this.ownerPhoneNumber, this.lPN, seperator);
+            string seperator = "================= GENERAL =======================";
+            return string.Format("\n{0} \nOwner Name : {1}\nOwner Phone : {2} \nVehicle LPN : {3} \nVehicle model : {4} \n{5}\n{6} ", seperator, this.ownerName, this.ownerPhoneNumber, this.lPN, this.model,  Wheels[0].ToString(),this.energy.ToString());
         }
     }
 }

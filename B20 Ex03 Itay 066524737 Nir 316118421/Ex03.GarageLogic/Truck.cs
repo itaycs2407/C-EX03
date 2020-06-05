@@ -18,17 +18,13 @@ namespace Ex03.GarageLogic
         public float CargoVolume { get => m_CargoVolume; set => m_CargoVolume = value; }
         public bool IsDangerousMaterials { get => m_IsDangerousMaterials; set => m_IsDangerousMaterials = value; }
 
-        //CR ::Comment:: Why not having the same function in the abstract class ? feels like duplicate 
-        public override void FillEnergy(float i_AmountToFill)
-        {
-            throw new NotImplementedException();
-        }
 
         public override string ToString()
         {
             string generalDetails = GetGeneralDetails();
-            string spcificDetails = string.Format(@" \nCargo volume : {0} \n Carry dangerous materials {1}", m_CargoVolume, m_IsDangerousMaterials.ToString());
-            return string.Format(@"{0}\n {1}", generalDetails, spcificDetails);
+            string seperator = "================= OTHER =========================";
+            string spcificDetails = string.Format("{0}\nType of vehicle : {1} \nCargo volume : {2} \nCarry dangerous materials : {3}", seperator, this.GetType().Name, m_CargoVolume, m_IsDangerousMaterials.ToString());
+            return string.Format("{0}\n{1}", generalDetails, spcificDetails);
         }
    }
 

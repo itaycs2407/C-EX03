@@ -23,5 +23,11 @@ namespace Ex03.GarageLogic
                 ? CurrentAirPressure + i_Pressure : CurrentAirPressure;
             // need to throw exception
         }
+
+        public override string ToString()
+        {
+            string seperator = "================= WHEELS ========================";
+            return string.Format("\n{0}\nManufacture Name : {1}\nManufacture Recommended Air Pressure : {2} PSI \nCurrent Air Pressure : {3} PSI", seperator, this.m_ManufactureName, this.m_ManufactureRecommendedAirPressure, this.m_CurrentAirPressure);
+        }
     }
 }

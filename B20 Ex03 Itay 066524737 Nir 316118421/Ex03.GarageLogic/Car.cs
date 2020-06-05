@@ -16,18 +16,14 @@ namespace Ex03.GarageLogic
         public eVehicleColor Color { get => m_Color; set => m_Color = value; }
         public eDoors NumberOfDoors { get => m_NumberOfDoors; set => m_NumberOfDoors = value; }
 
-        //CR ::Action:: Added base class implemantaion in case we decide to change our mind..
-        public override void FillEnergy(float i_AmountToFill)
-        {
-            //CR ::Action:: Added implementation
-            Energy.FillEnergy(i_AmountToFill);   
-        }
         
         public override string ToString()
         {
             string generalDetails = GetGeneralDetails();
-            string spcificDetails = string.Format(" \nNumber of doors : {0} \nColor :  {1}", (int)m_NumberOfDoors, m_Color.ToString());
-            return string.Format("{0} \n {1}", generalDetails, spcificDetails);
+            string seperator = "================= OTHER =========================";
+            string specificDetails = string.Format("\n{0}\nType of vehicle : {1}\nNumber of doors : {2}, {3} \nColor :  {4}", seperator, this.GetType().Name, (int)m_NumberOfDoors,m_NumberOfDoors, m_Color.ToString());
+
+            return string.Format("{0}\n{1}", generalDetails, specificDetails);
         }
      
     }

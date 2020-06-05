@@ -24,17 +24,20 @@ namespace Ex03.GarageLogic
         }
         public virtual void FillEnergy(float i_AmountToFill, eFuelType i_FuelType)
         {
-
-            //CR ::Action:: Removed this.
             if (FuelType.Equals(i_FuelType))
             {
-                //CR ::Action:: called the other implementation of FillEnergey  - there were two lines equaly the same
                 FillEnergy(i_AmountToFill);
             }
             else
             {
-                // need to throw exception
+                throw new ArgumentException();
             }
+        }
+        public override string ToString()
+        {
+            string energyTankAttribute = this.Type == eEnergyType.Electric ? "Hours" : "Liter";
+            string seperator = "================= ENERGY ========================";
+            return string.Format("\n{0}\nEnergy type : {1}\nFuel type : {2} \nMax energy capacity : {3} {4}\nCurrent energy capacity : {5} {6}", seperator, this.m_Type, this.m_FuelType, this.m_MaxEnergy, energyTankAttribute ,this.m_CurrentEnergy, energyTankAttribute);
         }
 
         public virtual void FillEnergy(float i_AmountToFill)
@@ -45,7 +48,16 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                throw new ValueOutOfRangeException(32, 0);
+                float maxLimit = VehicleGenerator.k_CarFuelTank;
+                if (this.Type == eEnergyType.Electric)
+                {
+                    maxLimit = VehicleGenerator.k_CarElectricCapacity;
+                }
+                else if (this.FuelType == eFuelType.Soler)
+                {
+                    maxLimit = VehicleGenerator.k_TruckFuelTank;
+                }
+                throw new ValueOutOfRangeException(maxLimit);
             }
         }
 

@@ -5,31 +5,28 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Ex03.GarageLogic;
+using Microsoft.Win32;
 
 namespace Ex03.ConsoleUI
 {
     class Program
     {
+            private static MenuGenerator menu = new MenuGenerator();
+            private static Garage garage = new Garage();
+            private static string userLPNInput, m_OwnerName, m_OwnerPhoneNumber, m_Model, m_LPN, m_WheelManufactureName;
+            private static int case1UserInput ,m_EngineVolume ,userInput = 1;
+            private static bool m_IsDangerousMaterials, exit = userInput == 8 ? true : !true;
+            private static List<string> vehicleLPNList;
+            private static eVehicleState userStateInput;
+            private static eLicense m_Lisence;
+            private static eVehicleColor m_Color;
+            private static eDoors m_Doors;
+            private static float m_CurrentAirPressure, m_CargoVolume, m_CurrentAmountOfEnergy;
         static void Main(string[] args)
         {
-
-            MenuGenerator menu = new MenuGenerator();
-            Garage garage = new Garage();
-            string userLPNInput, m_OwnerName, m_OwnerPhoneNumber, m_Model, m_LPN, m_WheelManufactureName;
-            int userInput = menu.GetUserInputMainMenu();
-            int case1UserInput;
-            List<string> vehicleLPNList;
-            List<string> electricVehicleLPNList;
-            List<string> fueldVehicleLPNList;
-            eVehicleState userStateInput;
-            eLicense m_Lisence;
-            eVehicleColor m_Color;
-            eDoors m_Doors;
-            float m_CurrentAirPressure, m_CargoVolume, m_CurrentAmountOfEnergy;
-            int m_EngineVolume;
-            bool m_IsDangerousMaterials;
-            while (userInput >= 1 && userInput <=8) 
+            while (userInput >= 1 && userInput <=8 && !exit) 
             {
+                userInput = menu.GetUserInputMainMenu();
                 switch (userInput)
                 {
                     case 1: // Recive new Vehicle.
@@ -41,7 +38,7 @@ namespace Ex03.ConsoleUI
                                 getDetailsAndCreateCar(eEnergyType.Electric);
                                 break;
                             case 2:
-                                // Recive fueled car.`
+                                // Recive fueled car.
                                 getDetailsAndCreateCar(eEnergyType.Fueled);
                                 break;
                             case 3:
@@ -65,96 +62,159 @@ namespace Ex03.ConsoleUI
 
                     case 2:
                         // Show all vehicle LPN by state.
-                        
-                        //get input from user for the state to show by
-                        userStateInput = menu.GetStateFromUser("Select state to show all LPN by :");
-                        Console.WriteLine(garage.GetAllVehicleLPNByState(userStateInput).ToString());
+                        if (vehicleLPNList.Count > 0)
+                        {
+                            //get input from user for the state to show by
+                            userStateInput = menu.GetStateFromUser("Select state to show all LPN by :");
+                            vehicleLPNList = garage.GetAllVehicleLPNByState(userStateInput);
+                            Console.WriteLine(@"State to be diaplayed : {0}", userStateInput.ToString());
+                            printAllLpnAndGetInput(vehicleLPNList, false);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No vehicle in the Garage.");
+                        }
                         break;
                     case 3:
                         // Change vehicle state by LPN
                         
                         // get all LPN
                         vehicleLPNList = garage.GetAllVehicleLPN();
-                        //print the LPN list and get input from user on witch LPN he want to change state ->userLPNInput
-                        printAllLpnAndGetInput(vehicleLPNList); 
-                        // tell the user what is the current state of the selected LPN and than get input for state
-                        Console.WriteLine("The current state of the vehicle is : {0}, in case you choose the new state as the current state,\n No changes will be made !",garage.GetVehicleForDetails(userLPNInput).VehicleState.ToString());
-                        userStateInput = menu.GetStateFromUser("Choose the new stage :");
-                        garage.ChangeVehicleState(userLPNInput, userStateInput);
+                        if (vehicleLPNList.Count > 0)
+                        {
+                            //print the LPN list and get input from user on witch LPN he want to change state ->userLPNInput
+                            printAllLpnAndGetInput(vehicleLPNList, true);
+                            // tell the user what is the current state of the selected LPN and than get input for state
+                            Console.WriteLine("The current state of the vehicle is : {0}, in case you choose the new state as the current state,\n No changes will be made !",garage.GetVehicleForDetails(userLPNInput).VehicleState.ToString());
+                            userStateInput = menu.GetStateFromUser("Choose the new stage :");
+                            // add the logic for exit the menu
+                            
+                            if (userStateInput !=null )
+                            {
+                                garage.ChangeVehicleState(userLPNInput, userStateInput);
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("No vehicle in the Garage.");
+                        }
                         break;
                     case 4:
                         // Fill air in vehicle
                         vehicleLPNList = garage.GetAllVehicleLPN();
-                        //print the LPN list and get input from user on witch LPN he want to fill air in the wheels ->userLPNInput
-                        printAllLpnAndGetInput(vehicleLPNList);
-                        Vehicle vehicleToFillAir = garage.GetVehicleForDetails(userLPNInput);
-                        vehicleToFillAir.FillAirToMaxPressure();
+                        if (vehicleLPNList.Count > 0)
+                        {
+                            //print the LPN list and get input from user on witch LPN he want to fill air in the wheels ->userLPNInput
+                            printAllLpnAndGetInput(vehicleLPNList, true);
+                            Vehicle vehicleToFillAir = garage.GetVehicleForDetails(userLPNInput);
+                            vehicleToFillAir.FillAirToMaxPressure();
+                        }
+                        else
+                        {
+                            Console.WriteLine("No vehicle in the Garage.");
+                        }
                         break;
                     case 5:
                         // Fill fuled vehicle.
 
                         // get all LPN for vehicle powered by 
-                        fueldVehicleLPNList = garage.GetAllVehicleLPN(eEnergyType.Electric);
-                        //print the LPN list for electric vehicles and get input from user on witch LPN he want to charge ->userLPNInput
-                        printAllLpnAndGetInput(fueldVehicleLPNList);
-                        // need to add : input from user 
-                        Vehicle fueledVehicle = garage.GetVehicleForDetails(userLPNInput);
-                        Console.WriteLine("The current energy of the vehicle is {0} out of {1}", fueledVehicle.Energy.CurrentEnergy, fueledVehicle.Energy.MaxEnergy);
-                        // fill the vehicle.
-                        float amountOfFuelToCharge = menu.GetEnergyCapacityToAdd("Please enter amount of fuel to add : ");
-                        // ask from user fot fuel type
-                        eFuelType FuleTypeToFill = menu.GetFueltypeFromUser();
-                        // need to be surronding with try-catch
-                        // charge the vehicle
-                        fueledVehicle.Energy.FillEnergy(amountOfFuelToCharge, FuleTypeToFill);
+                        vehicleLPNList = garage.GetAllVehicleLPN(eEnergyType.Fueled);
+                        if (vehicleLPNList.Count > 0)
+                        {
+                            //print the LPN list for electric vehicles and get input from user on witch LPN he want to charge ->userLPNInput
+                            printAllLpnAndGetInput(vehicleLPNList, true);
+                            Vehicle fueledVehicle = garage.GetVehicleForDetails(userLPNInput);
+                            Console.WriteLine("The current energy of the vehicle is {0} liter out of {1} liter", fueledVehicle.Energy.CurrentEnergy, fueledVehicle.Energy.MaxEnergy);
+                            // fill the vehicle.
+                            float amountOfFuelToCharge = menu.GetEnergyCapacityToAdd("Please enter amount of fuel to add : ");
+                            // ask from user for fuel type
+                            eFuelType FuleTypeToFill = menu.GetFueltypeFromUser();
+                            // need to be surronding with try-catch
+                            // charge the vehicle
+                            try
+                            {
+                                fueledVehicle.Energy.FillEnergy(amountOfFuelToCharge, FuleTypeToFill);
+                            }
+                            catch (ValueOutOfRangeException voor)
+                            {
+                                Console.WriteLine(voor.Message);
+                            }
+                            catch (ArgumentException a)
+                            {
+                                Console.WriteLine("The fuel you wanted to fill is not the fuel car is powered with. operation failed");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("No vehicle in the Garage.");
+                        }
+                        
                         break;
                     case 6: 
                         // Charge electric vehicle.
                             
                         // get all LPN for vehicle powered by 
-                        electricVehicleLPNList = garage.GetAllVehicleLPN(eEnergyType.Electric);
+                        vehicleLPNList = garage.GetAllVehicleLPN(eEnergyType.Electric);
                         //print the LPN list for electric vehicles and get input from user on witch LPN he want to charge ->userLPNInput
-                        printAllLpnAndGetInput(electricVehicleLPNList);
-                        // need to add : input from user 
-                        Vehicle elctricVeheicle = garage.GetVehicleForDetails(userLPNInput);
-                        Console.WriteLine("The current energy of the vehicle is {0} out of {1}", elctricVeheicle.Energy.CurrentEnergy, elctricVeheicle.Energy.MaxEnergy);
-                        float numberOfMinuesToCharge = menu.GetEnergyCapacityToAdd("Please enter number of minutes to charge : ");
-                        
-                        // need to be surronding with try-catch
-                        // charge the vehicle
-                        elctricVeheicle.Energy.FillEnergy(numberOfMinuesToCharge);
-
+                        if (vehicleLPNList.Count > 0)
+                        {
+                            printAllLpnAndGetInput(vehicleLPNList, true);
+                            // need to add : input from user 
+                            Vehicle elctricVeheicle = garage.GetVehicleForDetails(userLPNInput);
+                            Console.WriteLine("The current energy of the vehicle is {0} hours out of {1} hours", elctricVeheicle.Energy.CurrentEnergy, elctricVeheicle.Energy.MaxEnergy);
+                            float numberOfMinuesToCharge = menu.GetEnergyCapacityToAdd("Please enter number of minutes to charge : ");
+                            
+                            // need to be surronding with try-catch
+                            // charge the vehicle
+                            elctricVeheicle.Energy.FillEnergy(numberOfMinuesToCharge);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No vehicle in the Garage.");
+                        }
                         break;
                     case 7:
                         // Show vehicle details by LPN.
                         vehicleLPNList = garage.GetAllVehicleLPN();
-                        //print the LPN list and get input from user on witch LPN he want to change state ->userLPNInput
-                        printAllLpnAndGetInput(vehicleLPNList);
-                        Console.WriteLine(garage.GetVehicleForDetails(userLPNInput).ToString());
+                        if (vehicleLPNList.Count > 0)
+                        {
+                            //print the LPN list and get input from user on witch LPN he want to change state ->userLPNInput
+                            printAllLpnAndGetInput(vehicleLPNList,true);
+                            Console.WriteLine(garage.GetVehicleForDetails(userLPNInput).ToString());
+                        }
+                        else
+                        {
+                            Console.WriteLine("No vehicle in the Garage.");
+                        }
                         break;
                     case 8:
                         // Exit.
+                        exit = true;
                         break;
                          
                 }
-                userInput = menu.GetUserInputMainMenu();
-            }
-            
-             void printAllLpnAndGetInput(List<string> i_VehicleLPNToPring)
-            {
-                Console.WriteLine("This is the list of all vehicles in the garage : \n");
-                foreach (string LPN in i_VehicleLPNToPring)
+                if (!exit) 
                 {
-                    Console.WriteLine("LPN : {1}", LPN);
+                    Console.WriteLine("Press any key to continue."); 
+                    Console.ReadLine();
                 }
-                
-                // maybe need to delele it
+            }
 
-                //Console.WriteLine(i_VehicleLPNToPring.ToString());
+        }
+            
+        private static void printAllLpnAndGetInput(List<string> i_VehicleLPNToPring, bool i_GetInput)
+        {
+            Console.WriteLine("This is the list of all vehicles in the garage : ");
+            foreach (string LPN in i_VehicleLPNToPring)
+            {
+                Console.WriteLine(@"LPN : {0}", LPN);
+            }
+            if (i_GetInput)
+            {
                 userLPNInput = menu.SelectLPN(i_VehicleLPNToPring);
             }
-
-            void getDetailsAndCreateCar(eEnergyType i_EnergyType)
+        }
+        private static void getDetailsAndCreateCar(eEnergyType i_EnergyType)
             {
                 menu.GetCarDetailsFromUser(out m_Color, out m_Doors);
                 if (i_EnergyType == eEnergyType.Electric)
@@ -167,7 +227,7 @@ namespace Ex03.ConsoleUI
                 }
 
             }
-            void getDetailsAndCreateMotor(eEnergyType i_EnergyType)
+        private static void getDetailsAndCreateMotor(eEnergyType i_EnergyType)
             {
                 menu.GetMotorcycleDetailsFromUser(out m_Lisence, out m_EngineVolume);
                 if (i_EnergyType == eEnergyType.Electric)
@@ -180,7 +240,5 @@ namespace Ex03.ConsoleUI
                 }
 
             }
-
-        }
     }
 }

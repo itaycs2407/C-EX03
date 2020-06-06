@@ -44,7 +44,8 @@ namespace Ex03.ConsoleUI
                 }
                 else
                 {
-                    menu.GetGenralDetailsFromUser(out m_OwnerName, out m_OwnerPhoneNumber, out m_Model, out m_WheelManufactureName);
+   
+                       menu.GetGenralDetailsFromUser(out m_OwnerName, out m_OwnerPhoneNumber, out m_Model, out m_WheelManufactureName);
                     switch (case1UserInput)
                     {
                         case 1:
@@ -229,17 +230,25 @@ namespace Ex03.ConsoleUI
                 printAllLpnAndGetInput(vehicleLPNList, true);
                 // need to add : input from user 
                 Vehicle elctricVeheicle = garage.GetVehicleForDetails(userLPNInput);
-                Console.WriteLine(@"The current energy of the vehicle is {0:0.00} hours out of {1:0.00} hours", elctricVeheicle.Energy.CurrentEnergy, elctricVeheicle.Energy.MaxEnergy);
-                float numberOfMinuesToCharge;
-                do
+                if (Math.Floor(elctricVeheicle.Energy.MaxEnergy - elctricVeheicle.Energy.CurrentEnergy) != 0)
                 {
-                    numberOfMinuesToCharge = menu.GetEnergyCapacityToAdd(string.Format(@"Please enter number of minutes to charge between 1 and {0:0}: ", (elctricVeheicle.Energy.MaxEnergy - elctricVeheicle.Energy.CurrentEnergy) * 60));
-                }
-                while ((numberOfMinuesToCharge / 60 + elctricVeheicle.Energy.CurrentEnergy) > elctricVeheicle.Energy.MaxEnergy);
 
-                // need to be surronding with try-catch
-                // charge the vehicle
-                elctricVeheicle.Energy.FillEnergy(numberOfMinuesToCharge);
+                    Console.WriteLine(@"The current energy of the vehicle is {0:0.000} hours out of {1:0.000} hours", elctricVeheicle.Energy.CurrentEnergy, elctricVeheicle.Energy.MaxEnergy);
+                    float numberOfMinuesToCharge;
+                    do
+                    {
+                        numberOfMinuesToCharge = menu.GetEnergyCapacityToAdd(string.Format(@"Please enter number of minutes to charge between 1 and {0:0.0}: ", Math.Floor((elctricVeheicle.Energy.MaxEnergy - elctricVeheicle.Energy.CurrentEnergy) * 60)));
+                    }
+                    while ((numberOfMinuesToCharge / 60 + elctricVeheicle.Energy.CurrentEnergy) > elctricVeheicle.Energy.MaxEnergy);
+
+                    // need to be surronding with try-catch
+                    // charge the vehicle
+                    elctricVeheicle.Energy.FillEnergy(numberOfMinuesToCharge);
+                }
+                else
+                {
+                    Console.WriteLine("The energy pack if full!");
+                }
             }
             else
             {

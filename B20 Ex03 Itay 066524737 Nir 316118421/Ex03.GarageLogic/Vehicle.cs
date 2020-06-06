@@ -23,17 +23,12 @@ namespace Ex03.GarageLogic
 
         public override abstract string ToString();
 
-        public Vehicle(string i_LPN ,string i_Model,  string i_OwnerName, string i_OwnerPhoneNumber)
+        public Vehicle(string i_LPN ,  string i_OwnerName, string i_OwnerPhoneNumber, string i_Model)
         {
             LPN = i_LPN;
             OwnerName = i_OwnerName;
             OwnerPhoneNumber = i_OwnerPhoneNumber;
             Model = i_Model;
-        }
-
-        public void FillEnergy(float i_AmountToFill)
-        {
-            Energy.FillEnergy(i_AmountToFill);
         }
 
         public virtual void FillAirToMaxPressure()

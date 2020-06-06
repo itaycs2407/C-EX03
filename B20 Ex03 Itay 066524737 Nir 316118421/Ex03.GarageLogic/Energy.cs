@@ -16,10 +16,10 @@ namespace Ex03.GarageLogic
 
         public Energy(eEnergyType i_Type, Nullable<eFuelType> i_FuelType, float i_MaxEnergy, float i_CurrentEnergy)
         {
-            m_Type = i_Type;
+            Type = i_Type;
             m_FuelType = i_FuelType;
             m_MaxEnergy = i_MaxEnergy;
-            m_CurrentEnergy = i_CurrentEnergy * i_MaxEnergy;
+            CurrentEnergy = i_CurrentEnergy * i_MaxEnergy;
         }
         public virtual void FillEnergy(float i_AmountToFill, eFuelType i_FuelType)
         {

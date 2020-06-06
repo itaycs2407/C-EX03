@@ -6,8 +6,9 @@ namespace Ex03.GarageLogic
 {
     public enum eDoors
     {
+        None,
         Cuppe,
-        TreeDoorCuppe,
+        ThreeDoorCuppe,
         Sedan,
         Wagen
     }

@@ -23,7 +23,6 @@ namespace Ex03.ConsoleUI
 Enter your choice : "); 
             return getUsersInput(1, 8);
         }
-        
 
         public eVehicleState GetStateFromUser(string i_MenuHeader)
         {
@@ -35,7 +34,7 @@ Enter your choice : ");
 4. Return to main menu.
 -----------------------------
 Enter your choice : ");
-            return (eVehicleState)(getUsersInput(1, 3)-1);
+            return (eVehicleState)(getUsersInput(1, 4) % 4);
         }
 
         public void GetGenralDetailsFromUser(out string i_OwnerName, out string i_OwnerPhoneNumber, out string i_Model, out string i_WheelManufactureName)
@@ -100,7 +99,6 @@ Enter your choice : ");
                 CurrentAmountOfEnergySTR = Console.ReadLine();
             }
         }
-
        
         internal void GetCarDetailsFromUser(out eVehicleColor io_Color, out eDoors io_Doors)
         {
@@ -110,22 +108,31 @@ Enter your choice : ");
 2. White.
 3. Black.
 4. Silver.
+5. Cancel and return to main menu
 -----------------------------
 Enter your choice : ");
-            io_Color = (eVehicleColor)(getUsersInput(1, 4) - 1);
-            Console.WriteLine("Select number of doors :");
-            Console.WriteLine(@"---------------------------
+            io_Color = (eVehicleColor)(getUsersInput(1, 5) % 5);
+            if (io_Color != eVehicleColor.None)
+            {
+                Console.WriteLine("Select number of doors :");
+                Console.WriteLine(@"---------------------------
 1. 2 doors - Cuppe.
 2. 3 doors - TreeDoorCuppe.
 3. 4 doors - Sedan.
 4. 5 doors - Wagen.
+5. Cancel and return to main menu
 -----------------------------
 Enter your choice : ");
-            io_Doors = (eDoors)(getUsersInput(1, 4) - 1);
+                io_Doors = (eDoors)(getUsersInput(1, 5) % 5);
+            }
+            else
+            {
+                io_Doors = eDoors.None;
+            }
+          
         }
 
-
-    internal void GetTruckDetailsFromUser(out float io_CargoVolume, out bool io_IsDangerousMaterials)
+        internal void GetTruckDetailsFromUser(out float io_CargoVolume, out bool io_IsDangerousMaterials)
         {
             string cargoVolumeSTR, boolUserInputSTR;
             int boolUserInput;
@@ -145,7 +152,7 @@ Enter your choice : ");
             }
             io_IsDangerousMaterials = boolUserInput == 1 ? true : !true;
         }
-
+    
         internal void GetMotorcycleDetailsFromUser(out eLicense io_Lisence, out int io_EngineVolume)
         {
             string engineVolumeStr;
@@ -162,11 +169,12 @@ Enter your choice : ");
 2. A1
 3. AA
 4. B
+5. Cancel and return to main menu
 -----------------------------
 Enter your choice : ");
-            io_Lisence = (eLicense)(getUsersInput(1, 4) - 1);
+            io_Lisence = (eLicense)(getUsersInput(1, 5) % 5);
         }
-           
+
         public eFuelType GetFueltypeFromUser()
         {
             Console.WriteLine("Choose fuel type :");
@@ -175,9 +183,10 @@ Enter your choice : ");
 2. Octan 96
 3. Octan 98
 4. Soler
+5.Cancel and return to main menu
 -----------------------------
 Enter your choice : ");
-            return (eFuelType)(getUsersInput(1, 4) - 1);
+            return (eFuelType)(getUsersInput(1, 5) % 5);
         }
         public int AddVehicle()
         {

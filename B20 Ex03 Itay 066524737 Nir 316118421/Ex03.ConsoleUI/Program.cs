@@ -126,15 +126,18 @@ namespace Ex03.ConsoleUI
         private static void showVehiclesLPNByState()
         {
             userStateInput = menu.GetStateFromUser("Select state to show all LPN by :");
-            vehicleLPNList = garage.GetAllVehicleLPNByState(userStateInput);
-            if (vehicleLPNList.Count > 0)
+            if (userStateInput != eVehicleState.None)
             {
-                Console.WriteLine(@"State to be diaplayed : {0}", userStateInput.ToString());
-                printAllLpnAndGetInput(vehicleLPNList, false);
-            }
-            else
-            {
-                Console.WriteLine("No vehicle in the Garage.");
+                vehicleLPNList = garage.GetAllVehicleLPNByState(userStateInput);
+                if (vehicleLPNList.Count > 0)
+                {
+                    Console.WriteLine(@"State to be diaplayed : {0}", userStateInput.ToString());
+                    printAllLpnAndGetInput(vehicleLPNList, false);
+                }
+                else
+                {
+                    Console.WriteLine("No vehicle in the Garage.");
+                }
             }
         }
         private static void setVehicleState()
@@ -150,7 +153,7 @@ namespace Ex03.ConsoleUI
                 userStateInput = menu.GetStateFromUser("Choose the new stage :");
                 // add the logic for exit the menu
 
-                if (userStateInput != null)
+                if (userStateInput != eVehicleState.None)
                 {
                     garage.ChangeVehicleState(userLPNInput, userStateInput);
                 }
@@ -192,18 +195,21 @@ namespace Ex03.ConsoleUI
                 eFuelType FuleTypeToFill = menu.GetFueltypeFromUser();
                 // need to be surronding with try-catch
                 // charge the vehicle
-                try
+                if (FuleTypeToFill != eFuelType.None)
                 {
-                    fueledVehicle.Energy.FillEnergy(amountOfFuelToCharge, FuleTypeToFill);
-                }
-                catch (ValueOutOfRangeException voor)
-                {
-                    Console.WriteLine(voor.Message);
-                }
-                //need to chck if OK
-                catch (ArgumentException a)
-                {
-                    Console.WriteLine(a.Message);
+                    try
+                    {
+                        fueledVehicle.Energy.FillEnergy(amountOfFuelToCharge, FuleTypeToFill);
+                    }
+                    catch (ValueOutOfRangeException voor)
+                    {
+                        Console.WriteLine(voor.Message);
+                    }
+                    //need to chck if OK
+                    catch (ArgumentException a)
+                    {
+                        Console.WriteLine(a.Message);
+                    }
                 }
             }
             else
@@ -309,8 +315,10 @@ namespace Ex03.ConsoleUI
             }
         }
         private static void getDetailsAndCreateCar(eEnergyType i_EnergyType)
+        {
+            menu.GetCarDetailsFromUser(out m_Color, out m_Doors);
+            if (m_Color != eVehicleColor.None && m_Doors != eDoors.None)
             {
-                menu.GetCarDetailsFromUser(out m_Color, out m_Doors);
                 if (i_EnergyType == eEnergyType.Electric)
                 {
                     garage.ReciveNewElectricCar(m_OwnerName, m_OwnerPhoneNumber, m_LPN, m_Model, m_CurrentAirPressure, m_WheelManufactureName, m_CurrentAmountOfEnergy, m_Color, m_Doors);
@@ -319,11 +327,13 @@ namespace Ex03.ConsoleUI
                 {
                     garage.ReciveNewFueledCar(m_OwnerName, m_OwnerPhoneNumber, m_LPN, m_Model, m_CurrentAirPressure, m_WheelManufactureName, m_CurrentAmountOfEnergy, m_Color, m_Doors);
                 }
-
             }
+        }
         private static void getDetailsAndCreateMotor(eEnergyType i_EnergyType)
+        {
+            menu.GetMotorcycleDetailsFromUser(out m_Lisence, out m_EngineVolume);
+            if (m_Lisence != eLicense.None)
             {
-                menu.GetMotorcycleDetailsFromUser(out m_Lisence, out m_EngineVolume);
                 if (i_EnergyType == eEnergyType.Electric)
                 {
                     garage.ReciveNewElectricMotorcycle(m_OwnerName, m_OwnerPhoneNumber, m_LPN, m_Model, m_CurrentAirPressure, m_WheelManufactureName, m_CurrentAmountOfEnergy, m_Lisence, m_EngineVolume);
@@ -332,8 +342,8 @@ namespace Ex03.ConsoleUI
                 {
                     garage.ReciveNewFueledMotorcycle(m_OwnerName, m_OwnerPhoneNumber, m_LPN, m_Model, m_CurrentAirPressure, m_WheelManufactureName, m_CurrentAmountOfEnergy, m_Lisence, m_EngineVolume);
                 }
-
             }
+        }
         private static void getUserInputForCarWheelPressure()
         {
             do

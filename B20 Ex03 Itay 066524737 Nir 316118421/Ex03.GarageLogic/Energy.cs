@@ -9,7 +9,7 @@ namespace Ex03.GarageLogic
         private readonly float m_MaxEnergy;
         private float m_CurrentEnergy;
 
-        public float MaxEnergy { get => m_MaxEnergy;  }
+        public float MaxEnergy { get => m_MaxEnergy; }
         public float CurrentEnergy { get => m_CurrentEnergy; set => m_CurrentEnergy = value; }
         public eEnergyType Type { get => m_Type; set => m_Type = value; }
         public eFuelType FuelType { get => m_FuelType.Value; set => m_FuelType = value; }
@@ -19,7 +19,7 @@ namespace Ex03.GarageLogic
             m_Type = i_Type;
             m_FuelType = i_FuelType;
             m_MaxEnergy = i_MaxEnergy;
-            m_CurrentEnergy = i_CurrentEnergy;
+            m_CurrentEnergy = i_CurrentEnergy * i_MaxEnergy;
         }
         public virtual void FillEnergy(float i_AmountToFill, eFuelType i_FuelType)
         {
@@ -29,36 +29,42 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                throw new ArgumentException();
+                throw new ArgumentException("The fuel you wanted to fill is not the fuel car is powered with. operation failed");
             }
         }
         public override string ToString()
         {
             string energyTankAttribute = this.Type == eEnergyType.Electric ? "Hours" : "Liter";
             string seperator = "================= ENERGY ========================";
-            return string.Format("\n{0}\nEnergy type : {1}\nFuel type : {2} \nMax energy capacity : {3} {4}\nCurrent energy capacity : {5} {6}", seperator, this.m_Type, this.m_FuelType, this.m_MaxEnergy, energyTankAttribute ,this.m_CurrentEnergy, energyTankAttribute);
+            return string.Format("\n{0}\nEnergy type : {1}\nFuel type : {2} \nMax energy capacity : {3} {4}\nCurrent energy capacity : {5:0.00} {6}", seperator, this.m_Type, this.m_FuelType, this.m_MaxEnergy, energyTankAttribute, this.m_CurrentEnergy, energyTankAttribute);
         }
 
         public virtual void FillEnergy(float i_AmountToFill)
         {
-            if (m_CurrentEnergy + i_AmountToFill <= m_MaxEnergy)
+            if (this.Type == eEnergyType.Electric)
             {
-                m_CurrentEnergy = m_CurrentEnergy + i_AmountToFill;
+                if (i_AmountToFill / 60 + this.m_CurrentEnergy <= this.MaxEnergy)
+                {
+                    this.m_CurrentEnergy += i_AmountToFill / 60;
+                }
+                else
+                {
+                    throw new ValueOutOfRangeException();
+                }
+
             }
             else
             {
-                float maxLimit = VehicleGenerator.k_CarFuelTank;
-                if (this.Type == eEnergyType.Electric)
+                if (this.m_CurrentEnergy + i_AmountToFill <= this.m_MaxEnergy)
                 {
-                    maxLimit = VehicleGenerator.k_CarElectricCapacity;
+                    this.m_CurrentEnergy += i_AmountToFill;
                 }
-                else if (this.FuelType == eFuelType.Soler)
+                else
                 {
-                    maxLimit = VehicleGenerator.k_TruckFuelTank;
+                    throw new ValueOutOfRangeException();
                 }
-                throw new ValueOutOfRangeException(maxLimit);
             }
-        }
 
+        }
     }
 }

@@ -4,20 +4,20 @@ namespace Ex03.GarageLogic
 {
     public abstract class Vehicle
     {
-        private string model;
+        private string m_Model;
         // LPN  = License Plate Number
-        private string lPN;
+        private string m_LPN;
         private List<Wheel> wheels;
-        private string ownerName; 
-        private string ownerPhoneNumber; 
+        private string m_OwnerName; 
+        private string m_OwnerPhoneNumber; 
         private Energy energy;
         private eVehicleState vehicleState;
 
-        public string Model { get => model; set => model = value; }
-        public string LPN { get => lPN; set => lPN = value; }
+        public string Model { get => m_Model; set => m_Model = value; }
+        public string LPN { get => m_LPN; set => m_LPN = value; }
         internal List<Wheel> Wheels { get => wheels; set => wheels = value; }
-        public string OwnerName { get => ownerName; set => ownerName = value; }
-        public string OwnerPhoneNumber { get => ownerPhoneNumber; set => ownerPhoneNumber = value; }
+        public string OwnerName { get => m_OwnerName; set => m_OwnerName = value; }
+        public string OwnerPhoneNumber { get => m_OwnerPhoneNumber; set => m_OwnerPhoneNumber = value; }
         public eVehicleState VehicleState { get => vehicleState; set => vehicleState = value; }
         public Energy Energy { get => energy; set => energy = value; }
 
@@ -52,7 +52,7 @@ namespace Ex03.GarageLogic
         {
             // add energy details 
             string seperator = "================= GENERAL =======================";
-            return string.Format("\n{0} \nOwner Name : {1}\nOwner Phone : {2} \nVehicle LPN : {3} \nVehicle model : {4} \nVehicle state : {5} \n{6}\n{7} ", seperator, this.ownerName, this.ownerPhoneNumber, this.lPN, this.model,this.VehicleState,  Wheels[0].ToString(),this.energy.ToString());
+            return string.Format("\n{0} \nOwner Name : {1}\nOwner Phone : {2} \nVehicle LPN : {3} \nVehicle model : {4} \nVehicle state : {5} \n{6}\n{7} ", seperator, this.m_OwnerName, this.m_OwnerPhoneNumber, this.m_LPN, this.m_Model,this.VehicleState,  Wheels[0].ToString(),this.energy.ToString());
         }
     }
 }

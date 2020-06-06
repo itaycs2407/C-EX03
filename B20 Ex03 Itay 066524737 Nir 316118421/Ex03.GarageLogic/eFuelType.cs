@@ -6,9 +6,9 @@ namespace Ex03.GarageLogic
 {
     public enum eFuelType
     {
-        Octan98,
         Octan95,
         Octan96,
+        Octan98,
         Soler
     }
 }

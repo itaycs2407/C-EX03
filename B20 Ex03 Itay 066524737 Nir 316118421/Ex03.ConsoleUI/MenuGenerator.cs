@@ -80,7 +80,7 @@ Enter your choice : ");
         {
             string  CurrentAmountOfEnergySTR;
 
-            Console.Write("Enter current amount of energy :");
+            Console.Write("Enter current amount of energy (between 0 - 1, represnting %):");
             CurrentAmountOfEnergySTR = Console.ReadLine();
             CurrentAmountOfEnergySTR.Replace(" ", "");
             while (!float.TryParse(CurrentAmountOfEnergySTR, out io_CurrentAmountOfEnergy) || (CurrentAmountOfEnergySTR == string.Empty) || (io_CurrentAmountOfEnergy < 0 ))

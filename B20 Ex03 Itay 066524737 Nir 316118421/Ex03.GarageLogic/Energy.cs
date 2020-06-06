@@ -36,7 +36,7 @@ namespace Ex03.GarageLogic
         {
             string energyTankAttribute = this.Type == eEnergyType.Electric ? "Hours" : "Liter";
             string seperator = "================= ENERGY ========================";
-            return string.Format("\n{0}\nEnergy type : {1}\nFuel type : {2} \nMax energy capacity : {3} {4}\nCurrent energy capacity : {5:0.00} {6}", seperator, this.m_Type, this.m_FuelType, this.m_MaxEnergy, energyTankAttribute, this.m_CurrentEnergy, energyTankAttribute);
+            return string.Format("\n{0}\nEnergy type : {1}\nFuel type : {2} \nMax energy capacity : {3:0.0} {4}\nCurrent energy capacity : {5:0.0} {6}", seperator, this.m_Type, this.m_FuelType, this.m_MaxEnergy, energyTankAttribute, this.m_CurrentEnergy, energyTankAttribute);
         }
 
         public virtual void FillEnergy(float i_AmountToFill)

@@ -124,11 +124,10 @@ namespace Ex03.ConsoleUI
 
                     case 2:
                         // Show all vehicle LPN by state.
+                        userStateInput = menu.GetStateFromUser("Select state to show all LPN by :");
+                        vehicleLPNList = garage.GetAllVehicleLPNByState(userStateInput);
                         if (vehicleLPNList.Count > 0)
                         {
-                            //get input from user for the state to show by
-                            userStateInput = menu.GetStateFromUser("Select state to show all LPN by :");
-                            vehicleLPNList = garage.GetAllVehicleLPNByState(userStateInput);
                             Console.WriteLine(@"State to be diaplayed : {0}", userStateInput.ToString());
                             printAllLpnAndGetInput(vehicleLPNList, false);
                         }
@@ -231,7 +230,7 @@ namespace Ex03.ConsoleUI
                             {
                                 numberOfMinuesToCharge = menu.GetEnergyCapacityToAdd(string.Format(@"Please enter number of minutes to charge between 1 and {0:0}: ", (elctricVeheicle.Energy.MaxEnergy - elctricVeheicle.Energy.CurrentEnergy)*60));
                             }
-                            while (((numberOfMinuesToCharge + elctricVeheicle.Energy.CurrentEnergy) /60)  > elctricVeheicle.Energy.MaxEnergy);
+                            while ((numberOfMinuesToCharge / 60  + elctricVeheicle.Energy.CurrentEnergy)  > elctricVeheicle.Energy.MaxEnergy);
                             
                             // need to be surronding with try-catch
                             // charge the vehicle

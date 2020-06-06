@@ -62,9 +62,16 @@ Enter your choice : ");
             string CurrentAirPressureSTR;
             Console.Write("Enter current wheel pressure (must be below manufacture max pressure) : ");
             CurrentAirPressureSTR = Console.ReadLine();
-            while (float.TryParse(CurrentAirPressureSTR, out io_CurrentAirPressure) && (io_CurrentAirPressure < 0 ))
+            while (!float.TryParse(CurrentAirPressureSTR, out io_CurrentAirPressure) || (io_CurrentAirPressure < 0))
             {
-                Console.Write("Wrong input. Wheel pressure cant be under 0. Enter current wheel pressure :");
+                if (io_CurrentAirPressure < 0)
+                {
+                    Console.Write("Wrong input. Wheel pressure cant be under 0. Enter current wheel pressure :");
+                }
+                else
+                {
+                    Console.Write("Wrong input.None float value, enter current wheel pressure :");
+                }
                 CurrentAirPressureSTR = Console.ReadLine();
             }
         }
@@ -76,9 +83,20 @@ Enter your choice : ");
             Console.Write("Enter current amount of energy :");
             CurrentAmountOfEnergySTR = Console.ReadLine();
             CurrentAmountOfEnergySTR.Replace(" ", "");
-            while (float.TryParse(CurrentAmountOfEnergySTR, out io_CurrentAmountOfEnergy) && (CurrentAmountOfEnergySTR == string.Empty) || (io_CurrentAmountOfEnergy < 0 ))
+            while (!float.TryParse(CurrentAmountOfEnergySTR, out io_CurrentAmountOfEnergy) || (CurrentAmountOfEnergySTR == string.Empty) || (io_CurrentAmountOfEnergy < 0 ))
             {
-                Console.Write("Wrong input. Current energy capacity cant be under 0. Enter current amount of energy :");
+                if (io_CurrentAmountOfEnergy < 0)
+                {
+                    Console.Write("Wrong input. Current energy capacity cant be under 0. Enter current amount of energy :");
+                }
+                else if (CurrentAmountOfEnergySTR == string.Empty)
+                {
+                    Console.Write("Wrong input. Value cant be empty. Enter current amount of energy :");
+                }
+                else
+                {
+                    Console.Write("Wrong input. Value must be float. Enter current amount of energy :");
+                }
                 CurrentAmountOfEnergySTR = Console.ReadLine();
             }
         }

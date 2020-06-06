@@ -1,10 +1,10 @@
-﻿using Ex03.GarageLogic;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Ex03.GarageLogic;
 
 namespace Ex03.ConsoleUI
 {
-    class MenuGenerator
+    public class MenuGenerator
     {
         public int GetUserInputMainMenu()
         {
@@ -47,16 +47,15 @@ Enter your choice : ");
             i_Model = Console.ReadLine();
             Console.Write("Enter wheels manufacture name :");
             i_WheelManufactureName = Console.ReadLine();
-        
         }
 
-        internal void GetVehicleLPN(out string i_LPN)
+        public void GetVehicleLPN(out string i_LPN)
         {
             Console.Write("Enter vehicle LPN (License Plate Number) :");
             i_LPN = Console.ReadLine();
         }
 
-        internal void GetWheelPressure(out float io_CurrentAirPressure)
+        public void GetWheelPressure(out float io_CurrentAirPressure)
         {
             string CurrentAirPressureSTR;
             Console.Write("Enter current wheel pressure (must be below manufacture max pressure) : ");
@@ -71,17 +70,18 @@ Enter your choice : ");
                 {
                     Console.Write("Wrong input.None float value, enter current wheel pressure :");
                 }
+
                 CurrentAirPressureSTR = Console.ReadLine();
             }
         }
 
-        internal void GetCurrentEnergyCapacity(out float io_CurrentAmountOfEnergy)
+        public void GetCurrentEnergyCapacity(out float io_CurrentAmountOfEnergy)
         {
-            string  CurrentAmountOfEnergySTR;
+            string CurrentAmountOfEnergySTR;
 
             Console.Write("Enter current amount of energy (between 0 - 1, represnting %):");
             CurrentAmountOfEnergySTR = Console.ReadLine();
-            CurrentAmountOfEnergySTR.Replace(" ", "");
+            CurrentAmountOfEnergySTR.Replace(" ", string.Empty);
             while (!float.TryParse(CurrentAmountOfEnergySTR, out io_CurrentAmountOfEnergy) || (CurrentAmountOfEnergySTR == string.Empty) || (io_CurrentAmountOfEnergy < 0 ))
             {
                 if (io_CurrentAmountOfEnergy < 0)
@@ -96,11 +96,12 @@ Enter your choice : ");
                 {
                     Console.Write("Wrong input. Value must be float. Enter current amount of energy :");
                 }
+
                 CurrentAmountOfEnergySTR = Console.ReadLine();
             }
         }
-       
-        internal void GetCarDetailsFromUser(out eVehicleColor io_Color, out eDoors io_Doors)
+
+        public void GetCarDetailsFromUser(out eVehicleColor io_Color, out eDoors io_Doors)
         {
             Console.WriteLine("Select Color :");
             Console.WriteLine(@"---------------------------
@@ -129,13 +130,12 @@ Enter your choice : ");
             {
                 io_Doors = eDoors.None;
             }
-          
         }
 
-        internal void GetTruckDetailsFromUser(out float io_CargoVolume, out bool io_IsDangerousMaterials)
+        public void GetTruckDetailsFromUser(out float io_CargoVolume, out bool io_IsDangerousMaterials)
         {
             string cargoVolumeSTR, boolUserInputSTR;
-            int boolUserInput;
+            int v_BoolUserInput;
             Console.Write("Enter cargo volume :");
             cargoVolumeSTR = Console.ReadLine();
             while (float.TryParse(cargoVolumeSTR, out io_CargoVolume) && io_CargoVolume < 0)
@@ -143,17 +143,19 @@ Enter your choice : ");
                 Console.Write("Wrong input. Enter cargo volume :");
                 cargoVolumeSTR = Console.ReadLine();
             }
+
             Console.Write("Enter 1 if carry dangerous materials, 0 if not :");
             boolUserInputSTR = Console.ReadLine();
-            while (int.TryParse(boolUserInputSTR, out boolUserInput) && boolUserInput != 0 && boolUserInput != 1)
+            while (int.TryParse(boolUserInputSTR, out v_BoolUserInput) && v_BoolUserInput != 0 && v_BoolUserInput != 1)
             {
                 Console.Write("Wrong input. Enter 1 if carry dangerous materials, 0 if not :");
                 boolUserInputSTR = Console.ReadLine();
             }
-            io_IsDangerousMaterials = boolUserInput == 1 ? true : !true;
+
+            io_IsDangerousMaterials = v_BoolUserInput == 1 ? true : !true;
         }
-    
-        internal void GetMotorcycleDetailsFromUser(out eLicense io_Lisence, out int io_EngineVolume)
+
+        public void GetMotorcycleDetailsFromUser(out eLicense io_Lisence, out int io_EngineVolume)
         {
             string engineVolumeStr;
             Console.Write("Enter engine volume :");
@@ -163,6 +165,7 @@ Enter your choice : ");
                 Console.Write("Wrong input. Enter engine volume :");
                 engineVolumeStr = Console.ReadLine();
             }
+
             Console.WriteLine("Select license :");
             Console.WriteLine(@"---------------------------
 1. A
@@ -188,6 +191,7 @@ Enter your choice : ");
 Enter your choice : ");
             return (eFuelType)(getUsersInput(1, 5) % 5);
         }
+
         public int AddVehicle()
         {
             Console.WriteLine(r_Splash);
@@ -208,12 +212,11 @@ Enter your choice : ");
         {
             int userInput = 0;
             string userInputStr = Console.ReadLine();
-            userInputStr.Replace(" ", "");
-            while (int.TryParse(userInputStr, out userInput) && (userInputStr == string.Empty) || (userInput < i_LowIntLimit || userInput > i_HighIntLimit))
+            userInputStr.Replace(" ", string.Empty);
+            while ((int.TryParse(userInputStr, out userInput) && (userInputStr == string.Empty)) || (userInput < i_LowIntLimit || userInput > i_HighIntLimit))
             {
                 Console.WriteLine("Please enter number of you choice ({0}-{1})", i_LowIntLimit, i_HighIntLimit);
                 userInputStr = Console.ReadLine();
-
             }
 
             return userInput;

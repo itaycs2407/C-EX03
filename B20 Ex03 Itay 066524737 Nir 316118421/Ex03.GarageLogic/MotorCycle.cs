@@ -1,7 +1,4 @@
-﻿using System;
-
-
-namespace Ex03.GarageLogic
+﻿namespace Ex03.GarageLogic
 {
     public class MotorCycle : Vehicle
     {
@@ -17,12 +14,13 @@ namespace Ex03.GarageLogic
         }
 
         public eLicense License { get => m_License; set => m_License = value; }
+
         public float EngineVolume { get => m_EngineVolume; set => m_EngineVolume = value; }
 
         public override string ToString()
         {
             string generalDetails = GetGeneralDetails();
-            string seperator = "\n================= OTHER =========================";
+            string seperator = "================= OTHER =========================";
             string spcificDetails = string.Format("\n{0}\nType of vehicle : {1}\nEngine volume : {2} \nLicense : {3}", seperator, this.GetType().Name, m_EngineVolume.ToString(), m_License.ToString());
             return string.Format("{0}\n{1}", generalDetails, spcificDetails);
         }
